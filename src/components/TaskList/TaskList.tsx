@@ -12,8 +12,9 @@ const TaskList: React.FC = () => {
             {task.length > 0 ?
                 task.map((item,index) => (
                     <div key={index}
-                         className='flex flex-col border px-2 py-2 w-full border-gray-200 rounded-md shadow gap-1'
+                         className='flex flex-col relative border px-2 py-2 w-full border-gray-200 rounded-md shadow gap-1'
                     >
+                        
                         <div className='flex justify-start items-center'>
                             <div>
                                 <Checkbox/>

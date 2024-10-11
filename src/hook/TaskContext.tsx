@@ -4,7 +4,8 @@ interface Task {
     id: number,
     description: string,
     tags: string,
-    date: any
+    date: any,
+    tagList: string[]
 }
 
 interface ErrorInput {
@@ -20,6 +21,8 @@ interface TaskContextType {
     setInputValue: (value: string) => void,
     tagValue: string,
     setTagValue: (value: string) => void,
+    tagList: any,
+    setTagList: (tags: any) => void,
     date: Date,
     setDate: (date: Date) => void,
     inputErr: ErrorInput,
@@ -40,14 +43,22 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [task,setTask] = useState<Task[]>([]);
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
+    const [tagList,setTagList] = useState<string[]>([]);
 
+    const handleTagList = (value: string): string[] => {
+            const newTag = value;
+            const Tags = newTag.split(",");
+
+            return Tags;
+             
+    }
     const addTask = () => {
         const newTask: Task = {
             id: Date.now(),
             description: inputValue,
             tags: tagValue,
-            date: date.toLocaleDateString()
-        
+            date: date.toLocaleDateString(),
+            tagList: handleTagList(tagValue)
         }
         const newErrors: ErrorInput = {}
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
@@ -76,7 +87,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     return(
         <TaskContext.Provider 
                     value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,
-                    addTask,deleteTask,inputErr,setInputErr}}>
+                    addTask,deleteTask,inputErr,setInputErr,tagList,setTagList}}>
             {children}
         </TaskContext.Provider>
     );

@@ -13,10 +13,9 @@ const InputField: React.FC= () => {
 
     const [showCalendar,setShowCalendar] = useState<boolean>(false);
     
-    
     const inputDateRef = useRef<HTMLDivElement>(null)
 
-     const displayCalendar = (e: React.MouseEvent<HTMLButtonElement>) =>{
+     const displayCalendar = () =>{
         setShowCalendar(true);
     }
 
