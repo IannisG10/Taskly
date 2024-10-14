@@ -15,6 +15,8 @@ interface ErrorInput {
     tagError?: string
 }
 
+
+
 // Type contexte
 interface TaskContextType {
     task: Task[],
@@ -31,7 +33,9 @@ interface TaskContextType {
     setSearchTask: (value: string) => void,
     addTask: () => void,
     deleteTask: (id: number) => void,
-    searchTerm: (term: string)  => void
+    searchTerm: (term: string)  => void,
+    taskNotFound: boolean,
+    setTaskNotfound : (value: boolean) => void
 }
 
 // Creation du contexe
@@ -49,6 +53,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [task,setTask] = useState<Task[]>([]);
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
+    const [taskNotFound,setTaskNotfound] = useState<boolean>(false);
+    
 
     
     const addTask = () => {
@@ -87,16 +93,16 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     const searchTerm = (term: string) => {
 
-        task.map((tasks) => tasks.description === term ? 
-            console.log("Un ou plusieurs tâche ont été trouvée ") : console.log("Aucune tâche n'a été trouvé")
+        task.map((tasks) => tasks.description === term.trim() ? 
+            setTaskNotfound(true) : setTaskNotfound(false)
         )
     }
 
     return(
         <TaskContext.Provider 
-                    value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-                   setSearchTask,addTask,deleteTask,searchTerm,inputErr,setInputErr}}>
-            {children}
+            value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
+            setSearchTask,addTask,deleteTask,searchTerm,taskNotFound,setTaskNotfound,inputErr,setInputErr}}>
+                {children}
         </TaskContext.Provider>
     );
 }

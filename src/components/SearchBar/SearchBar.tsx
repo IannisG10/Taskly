@@ -5,7 +5,7 @@ import { useTask } from "@/hook/TaskContext";
 
 const SearchBar: React.FC = () => {
     
-    const { searchTask,setSearchTask,searchTerm } = useTask();
+    const { searchTask,setSearchTask,searchTerm,taskNotFound } = useTask();
 
     const handleSearchBar = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchTask(e.target.value);
@@ -31,7 +31,15 @@ const SearchBar: React.FC = () => {
                     />
                     <Search className='absolute right-1 cursor-pointer'/> 
                 </div>
+                {/* {taskNotFound ? <span className='font-josefin font-bold text-sm'>Vous avez trouvé la tâche</span> : 
+                    <span className='font-josefin font-bold text-sm'>Aucune tâche n'a été trouvé</span>} */}
                 
+                {searchTask !== "" ?
+                    taskNotFound ? <span className='font-josefin font-bold text-sm text-green-500'>Vous avez trouvé la tâche</span> : 
+                    <span className='font-bold font-josefin text-sm text-red-500'>Aucune tâche trouvé</span> 
+                    
+                    : null    
+                }
             </div>
         </>
     );
