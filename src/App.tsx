@@ -17,8 +17,8 @@ const App: React.FC = ()=> {
               setOpenMenue={setIsOpen}
         />
         <SideBar openMenue={isOpen}/>  
-        <SearchBar/>
         <TaskProvider>
+            <SearchBar/>
             <InputField/>
             <TaskList/>
         </TaskProvider>

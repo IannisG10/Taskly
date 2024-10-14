@@ -5,10 +5,11 @@ import { useTask } from "@/hook/TaskContext";
 
 const SearchBar: React.FC = () => {
     
-    const { searchTask,setSearchTask } = useTask();
+    const { searchTask,setSearchTask,searchTerm } = useTask();
 
     const handleSearchBar = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchTask(e.target.value);
+        searchTerm(searchTask);
     } 
     return(
         <>

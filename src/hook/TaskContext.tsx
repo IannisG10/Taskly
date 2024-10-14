@@ -30,7 +30,8 @@ interface TaskContextType {
     searchTask: string,
     setSearchTask: (value: string) => void,
     addTask: () => void,
-    deleteTask: (id: number) => void
+    deleteTask: (id: number) => void,
+    searchTerm: (term: string)  => void
 }
 
 // Creation du contexe
@@ -44,10 +45,10 @@ interface TaskProviderProps {
 export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [inputValue,setInputValue] = useState<string>("");
     const [tagValue,setTagValue] = useState<string>("");
+    const [searchTask ,setSearchTask] = useState<string>("");
     const [task,setTask] = useState<Task[]>([]);
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
-    const [searchTask ,setSearchTask] = useState<string>("");
 
     
     const addTask = () => {
@@ -58,7 +59,9 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             date: date.toLocaleDateString(),
             TagList: tagValue.split(",")
         }
+
         const newErrors: ErrorInput = {}
+
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
             setTask(prevTask => [...prevTask,newTask]);
 
@@ -82,10 +85,17 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         setTask(prevTask => prevTask.filter(tasks => tasks.id !== id))
     }
 
+    const searchTerm = (term: string) => {
+
+        task.map((tasks) => tasks.description === term ? 
+            console.log("Un ou plusieurs tâche ont été trouvée ") : console.log("Aucune tâche n'a été trouvé")
+        )
+    }
+
     return(
         <TaskContext.Provider 
                     value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-                   setSearchTask,addTask,deleteTask,inputErr,setInputErr}}>
+                   setSearchTask,addTask,deleteTask,searchTerm,inputErr,setInputErr}}>
             {children}
         </TaskContext.Provider>
     );
