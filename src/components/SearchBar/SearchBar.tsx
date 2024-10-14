@@ -37,7 +37,6 @@ const SearchBar: React.FC = () => {
                 {searchTask !== "" ?
                     taskNotFound ? <span className='font-josefin font-bold text-sm text-green-500'>Vous avez trouvé la tâche</span> : 
                     <span className='font-bold font-josefin text-sm text-red-500'>Aucune tâche trouvé</span> 
-                    
                     : null    
                 }
             </div>
