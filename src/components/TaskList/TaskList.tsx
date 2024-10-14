@@ -8,7 +8,7 @@ const TaskList: React.FC = () => {
     const { task,deleteTask,taskNotFound,reserchTask } = useTask()
 
     return(
-        <div className='flex flex-col gap-2 w-1/4'>
+        <div className='flex flex-col gap-2 w-1/4 relative'>
             {/* {task.length > 0 ?
                 task.map((item,index) => (
                     <div key={index}

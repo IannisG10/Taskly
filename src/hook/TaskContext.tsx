@@ -89,6 +89,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     const deleteTask = (id: number) => {
         setTask(prevTask => prevTask.filter(tasks => tasks.id !== id))
+        setReserchtask(prevTask => prevTask.filter(tasks => tasks.id !== id))
     }
 
     const searchTerm = (term: string) => {
