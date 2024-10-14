@@ -24,8 +24,14 @@ const TaskList: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className='w-fit text-xs bg-gray-400 py-1 px-2 rounded-lg font-medium '>
-                                {item.tags}
+                        <div className='flex flex-row items-center gap-1'>
+                            {item.TagList.map((itemTag,index) => (
+                                <div className='w-fit text-xs bg-gray-400 py-1 px-2 rounded-lg font-medium'
+                                        key={index}
+                                >
+                                    {itemTag}
+                                </div>
+                            ))}
                         </div>
 
                         <div className='flex flex-row items-center gap-2 cursor-pointer'>

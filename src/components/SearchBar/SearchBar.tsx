@@ -1,8 +1,15 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { Search } from "lucide-react";
 import TaskListLogo from "../../assets/icone/todolist-logo-svg (1).png"
+import { useTask } from "@/hook/TaskContext";
 
 const SearchBar: React.FC = () => {
+    
+    const { searchTask,setSearchTask } = useTask();
+
+    const handleSearchBar = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchTask(e.target.value);
+    } 
     return(
         <>
             <div className='flex flex-col justify-center items-center gap-2 w-full '>
@@ -12,11 +19,14 @@ const SearchBar: React.FC = () => {
                         Taskly
                     </h1>
                 </div>
+
                 <div className='flex justify-center items-center w-1/4 relative'>
                     <input type="text"
                        className='  font-josefin w-full py-1 px-4 pr-10 rounded-md border
                         border-gray-300 focus:outline-none  focus:border-black text-base'
                        placeholder="Recherher une taches..."
+                       value={searchTask}
+                       onChange={handleSearchBar}
                     />
                     <Search className='absolute right-1 cursor-pointer'/> 
                 </div>

@@ -1,13 +1,15 @@
 import React, { ReactNode, createContext, useContext, useState } from "react";
 
+// déclaration du type de la tache 
 interface Task {
     id: number,
     description: string,
     tags: string,
     date: any,
-    tagList: string[]
+    TagList: string[] 
 }
 
+// declaration du type pour l'etat qui va capturer les erreurs des champs 
 interface ErrorInput {
     descError?: string,
     tagError?: string
@@ -21,48 +23,45 @@ interface TaskContextType {
     setInputValue: (value: string) => void,
     tagValue: string,
     setTagValue: (value: string) => void,
-    tagList: any,
-    setTagList: (tags: any) => void,
     date: Date,
     setDate: (date: Date) => void,
     inputErr: ErrorInput,
-    setInputErr: (Err: ErrorInput) => void
+    setInputErr: (Err: ErrorInput) => void,
+    searchTask: string,
+    setSearchTask: (value: string) => void,
     addTask: () => void,
     deleteTask: (id: number) => void
 }
 
+// Creation du contexe
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
 
 interface TaskProviderProps {
     children: ReactNode
 }
 
+// TaskProvider qui fournit le contexte aux autres composant
 export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [inputValue,setInputValue] = useState<string>("");
     const [tagValue,setTagValue] = useState<string>("");
     const [task,setTask] = useState<Task[]>([]);
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
-    const [tagList,setTagList] = useState<string[]>([]);
+    const [searchTask ,setSearchTask] = useState<string>("");
 
-    const handleTagList = (value: string): string[] => {
-            const newTag = value;
-            const Tags = newTag.split(",");
-
-            return Tags;
-             
-    }
+    
     const addTask = () => {
         const newTask: Task = {
             id: Date.now(),
             description: inputValue,
             tags: tagValue,
             date: date.toLocaleDateString(),
-            tagList: handleTagList(tagValue)
+            TagList: tagValue.split(",")
         }
         const newErrors: ErrorInput = {}
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
             setTask(prevTask => [...prevTask,newTask]);
+
             setInputValue("");
             setTagValue("");
             setInputErr(newErrors);
@@ -74,7 +73,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             if(tagValue.trim() === ""){
                 newErrors.tagError = "Veuillez fournir un tag"
             }
-
             setInputErr(newErrors);
             return;
         }
@@ -86,8 +84,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     return(
         <TaskContext.Provider 
-                    value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,
-                    addTask,deleteTask,inputErr,setInputErr,tagList,setTagList}}>
+                    value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
+                   setSearchTask,addTask,deleteTask,inputErr,setInputErr}}>
             {children}
         </TaskContext.Provider>
     );
