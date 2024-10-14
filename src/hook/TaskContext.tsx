@@ -21,6 +21,8 @@ interface TaskContextType {
     setTask: (value: Task[]) => void,
     reserchTask: Task[],
     setReserchtask: (value: Task[]) => void,
+    trashedTask: Task[],
+    setTrashedTask: (value: Task[]) => void,
     inputValue: string,
     setInputValue: (value: string) => void,
     tagValue: string,
@@ -52,6 +54,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [searchTask ,setSearchTask] = useState<string>("");
     const [task,setTask] = useState<Task[]>([]);
     const [reserchTask,setReserchtask] = useState<Task[]>([])
+    const [trashedTask,setTrashedTask] = useState<Task[]>([]);
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
     const [taskNotFound,setTaskNotfound] = useState<boolean>(false);
@@ -90,6 +93,10 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const deleteTask = (id: number) => {
         setTask(prevTask => prevTask.filter(tasks => tasks.id !== id))
         setReserchtask(prevTask => prevTask.filter(tasks => tasks.id !== id))
+
+        const taskToDelete: Task[] = [...task];
+        taskToDelete.filter(tasks => tasks.id === id) 
+        setTrashedTask(taskToDelete);
     }
 
     const searchTerm = (term: string) => {
@@ -108,7 +115,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     return(
         <TaskContext.Provider 
             value={{task,setTask,reserchTask,setReserchtask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-            setSearchTask,addTask,deleteTask,searchTerm,taskNotFound,setTaskNotfound,inputErr,setInputErr}}>
+            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,searchTerm,taskNotFound,
+            setTaskNotfound,inputErr,setInputErr}}>
                 {children}
         </TaskContext.Provider>
     );
