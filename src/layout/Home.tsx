@@ -13,13 +13,13 @@ const Home: React.FC = () => {
         <>
             <Menue openMenue={isOpen}
               setOpenMenue={setIsOpen}
-        />
-        <SideBar openMenue={isOpen}/>  
-        <TaskProvider>
-            <SearchBar/>
-            <InputField/>
-            <TaskList/>
-        </TaskProvider>
+            />
+            <SideBar openMenue={isOpen}/>  
+            <TaskProvider>
+                <SearchBar/>
+                <InputField/>
+                <TaskList/>
+            </TaskProvider>
         </>
     );
 }
