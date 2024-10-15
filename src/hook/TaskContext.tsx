@@ -1,5 +1,5 @@
 import React, { ReactNode, createContext, useContext, useState } from "react";
-
+import { useEffect } from "react";
 // déclaration du type de la tache 
 interface Task {
     id: number,
@@ -49,6 +49,7 @@ interface TaskProviderProps {
 
 // TaskProvider qui fournit le contexte aux autres composant
 export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
+
     const [inputValue,setInputValue] = useState<string>("");
     const [tagValue,setTagValue] = useState<string>("");
     const [searchTask ,setSearchTask] = useState<string>("");
@@ -59,6 +60,22 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [date,setDate] = useState<Date>(new Date())
     const [taskNotFound,setTaskNotfound] = useState<boolean>(false);
     
+
+    // Effet qui permet de récupérer les élements du localStorage lors du premier chargement de la page 
+    useEffect(()=>{
+        const storedTask = localStorage.getItem("Task")
+        if(storedTask){
+            setTask(JSON.parse(storedTask))
+        }else{
+            setTask([]);
+        }
+    },[])
+
+    useEffect(()=>{
+        localStorage.setItem("Task",JSON.stringify(task));
+    },[task])
+
+
 
     const addTask = () => {
         const newTask: Task = {
@@ -91,12 +108,17 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const deleteTask = (id: number) => {
+        // Copie les taches  dans la variable TaskToDelete
+        const taskToDelete: Task[] = task.filter(tasks => tasks.id === id);
+        // filtre le tableau taskToDelete en gardant que les taches sipprimés
+        setTrashedTask(taskToDelete);
+        //Mets à jour l'etat qui contient les taches supprimés 
+        console.log("voici la liste des taches supprimés:",trashedTask);
+
         setTask(prevTask => prevTask.filter(tasks => tasks.id !== id))
         setReserchtask(prevTask => prevTask.filter(tasks => tasks.id !== id))
 
-        const taskToDelete: Task[] = [...task];
-        taskToDelete.filter(tasks => tasks.id === id) 
-        setTrashedTask(taskToDelete);
+        
     }
 
     const searchTerm = (term: string) => {
