@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css';
 import Home from './layout/Home';
+import Trash from './layout/Trash';
 import {Routes,Route } from 'react-router-dom';
 
 const App: React.FC = ()=> {
@@ -11,6 +12,7 @@ const App: React.FC = ()=> {
             rounded-md border border-gray-200 shadow-md relative'>
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/corbeille' element={<Trash/>}/>
         </Routes>
         
       </div>

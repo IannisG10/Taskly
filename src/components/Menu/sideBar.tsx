@@ -1,5 +1,6 @@
 import React from "react";
 import { CalendarDays,ListTodo,Trash2,Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface sideBarProps { 
     openMenue: boolean
@@ -35,7 +36,7 @@ const SideBar: React.FC<sideBarProps> = ({openMenue}) => {
 
                 <div className='flex items-center gap-1 ml-4 hover:bg-gray-200 hover:rounded-sm p-2'>
                     <Trash2 size={21}/>
-                    <h3 className='text-sm font-semibold'>Corbeille</h3>
+                    <h3 className='text-sm font-semibold'><Link to='/corbeille'>Corbeille</Link></h3>
                 </div>
             </div>
         </div>
