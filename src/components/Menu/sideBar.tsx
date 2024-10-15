@@ -21,7 +21,7 @@ const SideBar: React.FC<sideBarProps> = ({openMenue}) => {
                     <div>
                         <ListTodo size={21}/>
                     </div>
-                    <h3 className='text-sm font-semibold'>Toutes les Taches</h3>
+                    <h3 className='text-sm font-semibold'><Link to='/'>Toutes les Taches</Link></h3>
                 </div>
 
                 <div className='flex items-center gap-1 ml-4 hover:bg-gray-200 hover:rounded-sm p-2'>
