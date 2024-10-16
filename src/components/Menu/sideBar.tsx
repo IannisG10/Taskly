@@ -31,7 +31,7 @@ const SideBar: React.FC<sideBarProps> = ({openMenue}) => {
 
                 <div className='flex items-center gap-1 ml-4 hover:bg-gray-200 hover:rounded-sm p-2'>
                     <Star size={21}/>
-                    <h3 className='text-sm font-semibold'>Important</h3>
+                    <h3 className='text-sm font-semibold'><Link to='/important'>Important</Link></h3>
                 </div>
 
                 <div className='flex items-center gap-1 ml-4 hover:bg-gray-200 hover:rounded-sm p-2'>

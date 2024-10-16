@@ -34,6 +34,8 @@ interface TaskContextType {
     setInputErr: (Err: ErrorInput) => void,
     searchTask: string,
     setSearchTask: (value: string) => void,
+    favTask: Task[],
+    setFavTask:(fav: Task[]) => void,
     addTask: () => void,
     deleteTask: (id: number) => void,
     favingTask: (id: number) => void,
@@ -69,6 +71,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
     const [taskNotFound,setTaskNotfound] = useState<boolean>(false);
+    const [favTask,setFavTask] = useState<Task[]>([])
     
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
@@ -139,13 +142,16 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const favingTask = (id: number) => {
-        setTask(task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav}: tasks))
+        setTask(task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav}: tasks));
+        const TaskToFavs = task.filter(tasks => tasks.isFav)
+        setFavTask(TaskToFavs);
     }
 
     return(
         <TaskContext.Provider 
             value={{task,setTask,reserchTask,setReserchtask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,searchTerm,favingTask,taskNotFound,setTaskNotfound,inputErr,setInputErr}}>
+            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,searchTerm,
+            favingTask,favTask,setFavTask,taskNotFound,setTaskNotfound,inputErr,setInputErr}}>
                 {children}
         </TaskContext.Provider>
     );
