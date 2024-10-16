@@ -53,15 +53,15 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [inputValue,setInputValue] = useState<string>("");
     const [tagValue,setTagValue] = useState<string>("");
     const [searchTask ,setSearchTask] = useState<string>("");
-    
+
     const [task,setTask] = useState<Task[]>(()=>{
-        const storedTask = localStorage.getItem("Task");
+        const storedTask = sessionStorage.getItem("Task");
          return storedTask ? JSON.parse(storedTask) : []
     });
     const [reserchTask,setReserchtask] = useState<Task[]>([]);
 
     const [trashedTask,setTrashedTask] = useState<Task[]>(()=> {
-        const storedTrash = localStorage.getItem("Trash");
+        const storedTrash = sessionStorage.getItem("Trash");
         return storedTrash ? JSON.parse(storedTrash) : []
     });
     const [inputErr,setInputErr] = useState<ErrorInput>({})
@@ -69,12 +69,12 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [taskNotFound,setTaskNotfound] = useState<boolean>(false);
     
     useEffect(()=> {
-        localStorage.setItem("Task",JSON.stringify(task));
+        sessionStorage.setItem("Task",JSON.stringify(task));
     },[task])
 
     useEffect(()=> {
         // Sauvegarde les éléments supprimés dans le localStorage des que 'trashedTask' est mis à jour
-        localStorage.setItem("trash",JSON.stringify(trashedTask));
+        sessionStorage.setItem("Trash",JSON.stringify(trashedTask));
     },[trashedTask])
 
 

@@ -9,7 +9,7 @@ const TrashList: React.FC = ()=> {
     const [isOpen,setIsOpen] = useState<boolean>(false)
 
     useEffect(()=> {
-        localStorage.getItem("trash");
+        localStorage.getItem("Trash");
     },[])
     
     return(
