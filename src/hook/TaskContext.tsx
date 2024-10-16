@@ -6,7 +6,8 @@ interface Task {
     description: string,
     tags: string,
     date: any,
-    TagList: string[] 
+    TagList: string[],
+    isFav: boolean
 }
 
 // declaration du type pour l'etat qui va capturer les erreurs des champs 
@@ -35,6 +36,7 @@ interface TaskContextType {
     setSearchTask: (value: string) => void,
     addTask: () => void,
     deleteTask: (id: number) => void,
+    favingTask: (id: number) => void,
     searchTerm: (term: string)  => void,
     taskNotFound: boolean,
     setTaskNotfound : (value: boolean) => void
@@ -84,7 +86,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             description: inputValue,
             tags: tagValue,
             date: date.toLocaleDateString(),
-            TagList: tagValue.split(",")
+            TagList: tagValue.split(","),
+            isFav: false
         }
 
         const newErrors: ErrorInput = {}
@@ -135,11 +138,14 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         )
     }
 
+    const favingTask = (id: number) => {
+        setTask(task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav}: tasks))
+    }
+
     return(
         <TaskContext.Provider 
             value={{task,setTask,reserchTask,setReserchtask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,searchTerm,taskNotFound,
-            setTaskNotfound,inputErr,setInputErr}}>
+            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,searchTerm,favingTask,taskNotFound,setTaskNotfound,inputErr,setInputErr}}>
                 {children}
         </TaskContext.Provider>
     );

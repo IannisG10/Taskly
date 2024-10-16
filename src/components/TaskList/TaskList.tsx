@@ -3,9 +3,12 @@ import { useTask } from "@/hook/TaskContext";
 import { Checkbox } from "../ui/checkbox";
 import { Trash2 } from "lucide-react";
 import { Clock3 } from "lucide-react";
+import { Star } from "lucide-react";
 
 const TaskList: React.FC = () => {
-    const { task,deleteTask,taskNotFound,reserchTask } = useTask()
+    const { task,deleteTask,taskNotFound,reserchTask,favingTask } = useTask();
+
+    
 
     return(
         <div className='flex flex-col gap-2 w-1/4 relative'>
@@ -17,6 +20,7 @@ const TaskList: React.FC = () => {
                         <div className='flex justify-start items-center'>
                             <div>
                                 <Checkbox/>
+                               
                             </div>
                             <div className='inline-block font-medium text-base ml-1 w-auto'>
                                 {item.description}
@@ -50,14 +54,21 @@ const TaskList: React.FC = () => {
             )) : task.length > 0 ? 
                     task.map((item,index) =>(
                     <div key={index}
-                        className='flex flex-col relative border px-2 py-2 w-full border-gray-200 rounded-md shadow gap-1'
+                         className='flex flex-col relative border px-2 py-2 w-full border-gray-200 rounded-md shadow gap-1'
                     >
-                            <div className='flex justify-start items-center'>
-                                <div>
-                                    <Checkbox/>
+                            <div className='flex justify-between items-center'>
+                                <div className='flex flex-row items-center'>
+                                    <div>
+                                        <Checkbox/>
+                                    </div>
+                                    <div className='inline-block font-medium text-base ml-1 w-auto'>
+                                        {item.description}
+                                    </div>
                                 </div>
-                                <div className='inline-block font-medium text-base ml-1 w-auto'>
-                                    {item.description}
+                                <div className='hover:cursor-pointer'
+                                    onClick={()=> {favingTask(item.id)}}
+                                >
+                                   {item.isFav ? <Star size={20}/> : <Star size={20} fill="yellow"/>} 
                                 </div>
                             </div>
 
