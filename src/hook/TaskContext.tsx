@@ -53,28 +53,29 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [inputValue,setInputValue] = useState<string>("");
     const [tagValue,setTagValue] = useState<string>("");
     const [searchTask ,setSearchTask] = useState<string>("");
-    const [task,setTask] = useState<Task[]>([]);
-    const [reserchTask,setReserchtask] = useState<Task[]>([])
-    const [trashedTask,setTrashedTask] = useState<Task[]>([]);
+    
+    const [task,setTask] = useState<Task[]>(()=>{
+        const storedTask = localStorage.getItem("Task");
+         return storedTask ? JSON.parse(storedTask) : []
+    });
+    const [reserchTask,setReserchtask] = useState<Task[]>([]);
+
+    const [trashedTask,setTrashedTask] = useState<Task[]>(()=> {
+        const storedTrash = localStorage.getItem("Trash");
+        return storedTrash ? JSON.parse(storedTrash) : []
+    });
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
     const [taskNotFound,setTaskNotfound] = useState<boolean>(false);
     
-
-    // Effet qui permet de récupérer les élements du localStorage lors du premier chargement de la page 
-    useEffect(()=>{
-        const storedTask = localStorage.getItem("Task")
-        if(storedTask){
-            setTask(JSON.parse(storedTask))
-        }else{
-            setTask([]);
-        }
-    },[])
-
-    useEffect(()=>{
+    useEffect(()=> {
         localStorage.setItem("Task",JSON.stringify(task));
     },[task])
 
+    useEffect(()=> {
+        // Sauvegarde les éléments supprimés dans le localStorage des que 'trashedTask' est mis à jour
+        localStorage.setItem("trash",JSON.stringify(trashedTask));
+    },[trashedTask])
 
 
     const addTask = () => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTask } from "@/hook/TaskContext";
 import { Checkbox } from "../ui/checkbox";
 import SideBar from "../Menu/sideBar";
@@ -7,6 +7,10 @@ import Menue from "../Menu/Menu";
 const TrashList: React.FC = ()=> {
     const { trashedTask } = useTask();
     const [isOpen,setIsOpen] = useState<boolean>(false)
+
+    useEffect(()=> {
+        localStorage.getItem("trash");
+    },[])
     
     return(
         <>
