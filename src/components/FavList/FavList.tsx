@@ -24,7 +24,7 @@ const FavList: React.FC = ()=> {
                 {favTask.length > 0 ?
                     favTask.map((item,index)=> (
                         <div key={index}
-                             className='flex flex-col border border-gray-100 shadow-md rounded-md px-2 py-2 w-full'
+                             className='flex flex-col border border-gray-100 shadow-md rounded-md px-2 py-2 gap-1 w-full'
                         >
                             <div className='flex items-center'>
                                 <div>
@@ -49,6 +49,9 @@ const FavList: React.FC = ()=> {
                                  <div className='flex justify-center items-center gap-1 border border-gray-200 
                                         font-semibold px-2 py-1 rounded-md hover:bg-gray-200 hover:border-gray-300 ease-in-out'>
                                         <Clock3 size={20}/>
+                                        <div>
+                                            {item.date}
+                                        </div>
                                  </div>
                                  <div>
                                     <Trash2 size={20}/>

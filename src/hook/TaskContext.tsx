@@ -71,7 +71,10 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
     const [taskNotFound,setTaskNotfound] = useState<boolean>(false);
-    const [favTask,setFavTask] = useState<Task[]>([])
+    const [favTask,setFavTask] = useState<Task[]>(()=> {
+        const storedFavTask = sessionStorage.getItem("Favs");
+        return storedFavTask ? JSON.parse(storedFavTask) : []
+    })
     
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
@@ -81,6 +84,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         // Sauvegarde les éléments supprimés dans le localStorage des que 'trashedTask' est mis à jour
         sessionStorage.setItem("Trash",JSON.stringify(trashedTask));
     },[trashedTask])
+
+    // Effet de bord pour  sauvegarder les taches importantes dans le session storage 
+    useEffect(()=>{
+        sessionStorage.setItem("Favs",JSON.stringify(favTask));
+    },[favTask])
 
 
     const addTask = () => {
@@ -119,8 +127,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         const taskToDelete: Task[] = task.filter(tasks => tasks.id === id);
         // filtre le tableau taskToDelete en gardant que les taches sipprimés
         setTrashedTask(taskToDelete);
-        //Mets à jour l'etat qui contient les taches supprimés 
-        console.log("voici la liste des taches supprimés:",trashedTask);
 
         setTask(prevTask => prevTask.filter(tasks => tasks.id !== id))
         setReserchtask(prevTask => prevTask.filter(tasks => tasks.id !== id))
@@ -143,8 +149,9 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     const favingTask = (id: number) => {
         setTask(task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav}: tasks));
-        const TaskToFavs = task.filter(tasks => tasks.isFav)
+        const TaskToFavs = task.filter(tasks => tasks.isFav);
         setFavTask(TaskToFavs);
+        console.log(favTask)
     }
 
     return(
