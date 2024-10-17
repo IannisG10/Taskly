@@ -104,7 +104,13 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         const newErrors: ErrorInput = {}
 
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
-            setTask(prevTask => [...prevTask,newTask]);
+            setTask(prevTask => {
+                        const updateTask = [...prevTask, newTask];
+                        console.log("tahes ajoutés:",updateTask);
+                        return updateTask;
+                     }
+            );
+            
 
             setInputValue("");
             setTagValue("");
@@ -148,11 +154,17 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const favingTask = (id: number) => {
-        setTask(task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav}: tasks));
-        const TaskToFavs = task.filter(tasks => tasks.isFav);
+        // setTask(task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav}: tasks));
+        // const TaskToFavs = task.filter(tasks => tasks.isFav);
+        // setFavTask(TaskToFavs);
+        // console.log(task);
+        const updateTask = task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav} : tasks);
+        setTask(updateTask);
+        const TaskToFavs = task.filter(tasks => tasks.isFav)
         setFavTask(TaskToFavs);
-        console.log(favTask)
+        console.log(updateTask);
     }
+    
 
     return(
         <TaskContext.Provider 

@@ -68,7 +68,7 @@ const TaskList: React.FC = () => {
                                 <div className='hover:cursor-pointer'
                                     onClick={()=> {favingTask(item.id)}}
                                 >
-                                   {item.isFav ? <Star size={20} fill="white" /> : <Star size={20} fill="yellow" />} 
+                                   {item.isFav ? <Star size={20}fill="yellow" /> : <Star size={20}  />} 
                                 </div>
                             </div>
 
