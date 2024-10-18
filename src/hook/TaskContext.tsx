@@ -78,6 +78,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
+        setFavTask(prevFavTask => {
+            const storeFavs = task.filter(tasks => tasks.isFav);
+            console.log(storeFavs);
+            return storeFavs;
+        })
     },[task])
 
     useEffect(()=> {
@@ -154,15 +159,14 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const favingTask = (id: number) => {
-        // setTask(task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav}: tasks));
-        // const TaskToFavs = task.filter(tasks => tasks.isFav);
-        // setFavTask(TaskToFavs);
-        // console.log(task);
-        const updateTask = task.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav} : tasks);
-        setTask(updateTask);
-        const TaskToFavs = task.filter(tasks => tasks.isFav)
-        setFavTask(TaskToFavs);
-        console.log(updateTask);
+        // Mettre à jour l'etat `task` afin de modifier les valeurs boolea de isFav
+        setTask(prevTask => {
+            const updateTask = prevTask.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav} : tasks);
+            return updateTask;
+        })
+        
+        
+        
     }
     
 
