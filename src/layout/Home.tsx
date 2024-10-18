@@ -11,11 +11,13 @@ const Home: React.FC = () => {
     const [isOpen,setIsOpen] = useState<boolean>(false);
     return(
         <>
-            <Menue openMenue={isOpen}
-              setOpenMenue={setIsOpen}
-            />
-            <SideBar openMenue={isOpen}/>  
+            
             <TaskProvider>
+                <Menue openMenue={isOpen}
+                    setOpenMenue={setIsOpen}
+                />
+                <SideBar openMenue={isOpen}/>  
+                
                 <SearchBar/>
                 <InputField/>
                 <TaskList/>

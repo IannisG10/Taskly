@@ -189,6 +189,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     const changeTheme = () => {
         setTheme(!theme);
+        console.log(theme)
     }
     
 
