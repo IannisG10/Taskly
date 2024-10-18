@@ -70,8 +70,9 @@ const TaskList: React.FC = () => {
                                 </div>
                                 <div className='hover:cursor-pointer'
                                     onClick={()=> {favingTask(item.id)}}
+                                    title={`${!item.isFav && "Ajouter aux tâches importantes" }`}
                                 >
-                                   {item.isFav ? <Star size={20}fill="yellow" /> : <Star size={20}  />} 
+                                   {item.isFav ? <Star size={20}fill="yellow"  /> : <Star size={20}  />} 
                                 </div>
                             </div>
 
@@ -94,6 +95,7 @@ const TaskList: React.FC = () => {
                                 
                                 <div className='p-2 hover:bg-gray-200 cursor-pointer rounded-md'
                                     onClick={()=>{deleteTask(item.id)}}
+                                    title="supprimer"
                                 >
                                     <Trash2 size={20}/>
                                 </div>

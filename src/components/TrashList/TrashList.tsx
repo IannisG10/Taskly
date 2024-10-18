@@ -58,6 +58,7 @@ const TrashList: React.FC = ()=> {
                                     </div>
                                     <div className='p-2 hover:bg-gray-200 cursor-pointer rounded-md'
                                          onClick={()=> {restoreTask(item.id)}}   
+                                         title="Restaurer la tâches"
                                     >
                                         <ArchiveRestore size={20}/>
                                     </div>
@@ -67,6 +68,12 @@ const TrashList: React.FC = ()=> {
                             <div className='font-josefin font-semibold text-gray-400'> 
                                 Aucune Tâches supprimés
                             </div>
+                    }
+
+                    {trashedTask.length > 0 &&
+                        <div className=' flex justify-start text-sm font-serif font-medium text-gray-600 m-2'>
+                            Il y a {trashedTask.length} tâches supprimées
+                        </div>
                     }
                 </div>
            

@@ -42,7 +42,10 @@ interface TaskContextType {
     restoreTask: (id: number) => void,
     searchTerm: (term: string)  => void,
     taskNotFound: boolean,
-    setTaskNotfound : (value: boolean) => void
+    setTaskNotfound : (value: boolean) => void,
+    theme: boolean,
+    setTheme: (them: boolean) => void,
+    changeTheme: ()=> void
 }
 
 // Creation du contexe
@@ -76,6 +79,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         const storedFavTask = sessionStorage.getItem("Favs");
         return storedFavTask ? JSON.parse(storedFavTask) : []
     })
+    const [theme,setTheme] = useState<boolean>(false);
     
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
@@ -182,13 +186,17 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         });
         
     }
+
+    const changeTheme = () => {
+        setTheme(!theme);
+    }
     
 
     return(
         <TaskContext.Provider 
             value={{task,setTask,reserchTask,setReserchtask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
             setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,searchTerm,
-            favingTask,favTask,setFavTask,taskNotFound,setTaskNotfound,inputErr,setInputErr}}>
+            favingTask,favTask,setFavTask,taskNotFound,setTaskNotfound,inputErr,setInputErr,theme,setTheme,changeTheme}}>
                 {children}
         </TaskContext.Provider>
     );
