@@ -7,7 +7,7 @@ import { Clock3 } from "lucide-react";
 import { ArchiveRestore } from "lucide-react";
 
 const TrashList: React.FC = ()=> {
-    const { trashedTask } = useTask();
+    const { trashedTask,restoreTask } = useTask();
     const [isOpen,setIsOpen] = useState<boolean>(false)
 
     useEffect(()=> {
@@ -56,7 +56,9 @@ const TrashList: React.FC = ()=> {
                                             {item.date}
                                         </div>
                                     </div>
-                                    <div className='p-2 hover:bg-gray-200 cursor-pointer rounded-md'>
+                                    <div className='p-2 hover:bg-gray-200 cursor-pointer rounded-md'
+                                         onClick={()=> {restoreTask}}   
+                                    >
                                         <ArchiveRestore size={20}/>
                                     </div>
                                 </div>

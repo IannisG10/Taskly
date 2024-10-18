@@ -39,6 +39,7 @@ interface TaskContextType {
     addTask: () => void,
     deleteTask: (id: number) => void,
     favingTask: (id: number) => void,
+    restoreTask: (id: number) => void,
     searchTerm: (term: string)  => void,
     taskNotFound: boolean,
     setTaskNotfound : (value: boolean) => void
@@ -78,9 +79,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
-        setFavTask(prevFavTask => {
+        setFavTask(() => {
             const storeFavs = task.filter(tasks => tasks.isFav);
-            console.log(storeFavs);
             return storeFavs;
         })
     },[task])
@@ -135,13 +135,20 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     const deleteTask = (id: number) => {
         // Copie les taches  dans la variable TaskToDelete
-        const taskToDelete: Task[] = task.filter(tasks => tasks.id === id);
+        // const taskToDelete: Task[] = task.filter(tasks => tasks.id === id);
         // filtre le tableau taskToDelete en gardant que les taches sipprimés
-        setTrashedTask(taskToDelete);
+        // setTrashedTask(taskToDelete);
+        setTrashedTask(() => {
+            //Filtre les taches qui doivent etre placée dans la corbeille
+            const taskToDelete = task.filter(tasks => tasks.id === id);
+            //Combine les elemnts precdent de la corbeille aux nouveaux éléments ajoutées 
+            const concatTrash = trashedTask.concat(taskToDelete);
 
-        setTask(prevTask => prevTask.filter(tasks => tasks.id !== id))
+            return concatTrash;
+        })
+
+        setTask(prevTask => prevTask.filter(tasks => tasks.id !== id)); //Task est modifiée 
         setReserchtask(prevTask => prevTask.filter(tasks => tasks.id !== id))
-
         
     }
 
@@ -159,21 +166,25 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const favingTask = (id: number) => {
-        // Mettre à jour l'etat `task` afin de modifier les valeurs boolea de isFav
+        // Mettre à jour l'etat `task` afin de modifier les valeurs boolean de isFav
         setTask(prevTask => {
             const updateTask = prevTask.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav} : tasks);
             return updateTask;
-        })
-        
-        
-        
+        });   
+    }
+
+    const restoreTask = (id: number) => {
+        setTrashedTask(prevTrash => {
+            const taskToRestore = prevTrash.filter(trahs => trahs.id !== id);
+            return taskToRestore;
+        });
     }
     
 
     return(
         <TaskContext.Provider 
             value={{task,setTask,reserchTask,setReserchtask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,searchTerm,
+            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,searchTerm,
             favingTask,favTask,setFavTask,taskNotFound,setTaskNotfound,inputErr,setInputErr}}>
                 {children}
         </TaskContext.Provider>
