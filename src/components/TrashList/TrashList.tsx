@@ -57,7 +57,7 @@ const TrashList: React.FC = ()=> {
                                         </div>
                                     </div>
                                     <div className='p-2 hover:bg-gray-200 cursor-pointer rounded-md'
-                                         onClick={()=> {restoreTask}}   
+                                         onClick={()=> {restoreTask(item.id)}}   
                                     >
                                         <ArchiveRestore size={20}/>
                                     </div>

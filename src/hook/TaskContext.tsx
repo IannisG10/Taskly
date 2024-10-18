@@ -134,10 +134,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const deleteTask = (id: number) => {
-        // Copie les taches  dans la variable TaskToDelete
-        // const taskToDelete: Task[] = task.filter(tasks => tasks.id === id);
-        // filtre le tableau taskToDelete en gardant que les taches sipprimés
-        // setTrashedTask(taskToDelete);
         setTrashedTask(() => {
             //Filtre les taches qui doivent etre placée dans la corbeille
             const taskToDelete = task.filter(tasks => tasks.id === id);
@@ -176,8 +172,15 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const restoreTask = (id: number) => {
         setTrashedTask(prevTrash => {
             const taskToRestore = prevTrash.filter(trahs => trahs.id !== id);
+            const TaskToRestored = prevTrash.filter(trashs => trashs.id === id);
+            setTask(prevTask => {
+                const concatRestore = prevTask.concat(TaskToRestored);
+                console.log(concatRestore);
+                return concatRestore;
+            })
             return taskToRestore;
         });
+        
     }
     
 
