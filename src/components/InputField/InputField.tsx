@@ -64,7 +64,7 @@ const InputField: React.FC= () => {
                             <input type="text"
                                     value={inputValue}
                                 className='font-josefin py-1 px-4 pr-10 text-base rounded-md border bg-gray-600
-                                border-gray-300 outline-none focus:outline-none focus:border-gray-200 text-gray-100 w-full'
+                                border-gray-300 outline-none focus:outline-none placeholder:text-gray-400 focus:border-gray-200 text-gray-100 w-full'
                                 placeholder='Ajouter une nouvelle taches'
                                 onChange={handleTask}
                                 />    
@@ -72,7 +72,7 @@ const InputField: React.FC= () => {
                         </div>
         
                         <button className='flex justify-center items-center font-josefin font-semibold ease-in duration-100
-                            border border-gray-300 bg-gray-600 rounded-md w-full py-1 px-4 bg-transparent hover:bg-gray-200  '
+                            border border-gray-300 bg-black rounded-md w-full py-1 px-4 bg-transparent hover:bg-gray-950  '
                             onClick={displayCalendar}     
                         >
                             <CalendarDays size={23} color="white"/> 
@@ -94,7 +94,7 @@ const InputField: React.FC= () => {
                                     value={tagValue}
                                     placeholder="Tags(séparés par des virgules)"
                                     className='font-josefin py-1 px-4  border border-gray-300 rounded-md 
-                                    outline-none focus:border-gray-200 text-gray-100 focus:outline-none w-full bg-gray-600 '
+                                    outline-none focus:border-gray-200 placeholder:text-gray-400 text-gray-100 focus:outline-none w-full bg-gray-600 '
                                     onChange={handleTag}
                             />
                         {inputErr.tagError && <span className="text-xs text-red-500 font-semibold">{inputErr.tagError}</span>}

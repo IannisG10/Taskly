@@ -5,7 +5,7 @@ import { useTask } from "@/hook/TaskContext";
 
 const SearchBar: React.FC = () => {
     
-    const { searchTask,setSearchTask,searchTerm,taskNotFound } = useTask();
+    const { searchTask,setSearchTask,searchTerm,taskNotFound,theme } = useTask();
 
     const handleSearchBar = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchTask(e.target.value);
@@ -13,6 +13,33 @@ const SearchBar: React.FC = () => {
     } 
     return(
         <>
+            {theme ? 
+                <div className='flex flex-col justify-center items-center gap-2 w-full '>
+                    <div className='flex justify-center items-center'>
+                        <img src={TaskListLogo} alt="Logo_Task_list" className='w-1/6 h-1/6' />
+                        <h1 className='text-3xl font-josefin font-bold italic text-gray-700'>
+                            Taskly
+                        </h1>
+                    </div>
+
+                <div className='flex justify-center items-center w-1/4 relative'>
+                    <input type="text"
+                       className='  font-josefin w-full py-1 px-4 pr-10 rounded-md border
+                        border-gray-300 focus:outline-none bg-gray-600 placeholder:text-gray-400  focus:border-black text-base'
+                       placeholder="Recherher une taches..."
+                       value={searchTask}
+                       onChange={handleSearchBar}
+                    />
+                    <Search className='absolute right-1 cursor-pointer'/> 
+                </div>
+                
+                {searchTask !== "" ?
+                    taskNotFound ? <span className='font-josefin font-bold text-sm text-green-500'>Vous avez trouvé la tâche</span> : 
+                    <span className='font-bold font-josefin text-sm text-red-500'>Aucune tâche trouvé</span> 
+                    : null    
+                }
+            </div> : 
+
             <div className='flex flex-col justify-center items-center gap-2 w-full '>
                 <div className='flex justify-center items-center'>
                     <img src={TaskListLogo} alt="Logo_Task_list" className='w-1/6 h-1/6' />
@@ -23,23 +50,22 @@ const SearchBar: React.FC = () => {
 
                 <div className='flex justify-center items-center w-1/4 relative'>
                     <input type="text"
-                       className='  font-josefin w-full py-1 px-4 pr-10 rounded-md border
+                    className='  font-josefin w-full py-1 px-4 pr-10 rounded-md border
                         border-gray-300 focus:outline-none  focus:border-black text-base'
-                       placeholder="Recherher une taches..."
-                       value={searchTask}
-                       onChange={handleSearchBar}
+                    placeholder="Recherher une taches..."
+                    value={searchTask}
+                    onChange={handleSearchBar}
                     />
                     <Search className='absolute right-1 cursor-pointer'/> 
                 </div>
-                {/* {taskNotFound ? <span className='font-josefin font-bold text-sm'>Vous avez trouvé la tâche</span> : 
-                    <span className='font-josefin font-bold text-sm'>Aucune tâche n'a été trouvé</span>} */}
-                
+
                 {searchTask !== "" ?
                     taskNotFound ? <span className='font-josefin font-bold text-sm text-green-500'>Vous avez trouvé la tâche</span> : 
                     <span className='font-bold font-josefin text-sm text-red-500'>Aucune tâche trouvé</span> 
                     : null    
                 }
             </div>
+            }
         </>
     );
 }
