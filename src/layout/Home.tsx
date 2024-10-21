@@ -5,7 +5,6 @@ import InputField from "@/components/InputField/InputField";
 import TaskList from "@/components/TaskList/TaskList";
 import Menue from "@/components/Menu/Menu";
 import SideBar from "@/components/Menu/sideBar";
-import { TaskProvider } from "@/hook/TaskContext";
 
 const Home: React.FC = () => {
 
@@ -15,12 +14,11 @@ const Home: React.FC = () => {
     return(
         <>
             
-            <TaskProvider>
             {/* flex flex-col justify-center items-center gap-7 mx-5 my-5  py-3 rounded-md border-gray-200 shadow-md relative */}
                     
                      
 
-                    <div className={`flex flex-col justify-center items-center gap-7 mx-5 my-5  py-3 rounded-md ${theme ? "border-red-300" : "border-red-200"}  shadow-md relative`}>
+                    <div className={`flex flex-col justify-center items-center gap-7 mx-5 my-5 py-3 rounded-md border-gray-200 shadow-md  ${theme ? "bg-gray-700":"bg-white"} relative`}>
                         <Menue openMenue={isOpen}
                             setOpenMenue={setIsOpen}
                         />
@@ -32,7 +30,7 @@ const Home: React.FC = () => {
                     </div>
                 
                 
-            </TaskProvider>
+        
         </>
     );
 }

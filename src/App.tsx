@@ -4,6 +4,7 @@ import Home from './layout/Home';
 import Trash from './layout/Trash';
 import Favorite from './layout/Favorite';
 import {Routes,Route } from 'react-router-dom';
+import { TaskProvider } from './hook/TaskContext';
 
 
 
@@ -11,12 +12,15 @@ const App: React.FC = ()=> {
     
     return(
         <>
-                
+                <TaskProvider>
                   <Routes>
-                    <Route path='/' element={<Home/>}/>
-                    <Route path='/corbeille' element={<Trash/>}/>
-                    <Route path='/important' element={<Favorite/>}/>
-                  </Routes>
+                      <Route path='/' element={<Home/>}/>
+                      <Route path='/corbeille' element={<Trash/>}/>
+                      <Route path='/important' element={<Favorite/>}/>
+                    </Routes>
+
+                </TaskProvider>
+                  
                
         </>
     
