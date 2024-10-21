@@ -7,7 +7,7 @@ import { Clock3 } from "lucide-react";
 import { ArchiveRestore } from "lucide-react";
 
 const TrashList: React.FC = ()=> {
-    const { trashedTask,restoreTask } = useTask();
+    const { trashedTask,restoreTask,theme } = useTask();
     const [isOpen,setIsOpen] = useState<boolean>(false)
 
     useEffect(()=> {
@@ -16,6 +16,7 @@ const TrashList: React.FC = ()=> {
     
     return(
         <>
+            <div className={`flex flex-col justify-center items-center gap-7 mx-5 my-5 py-3 rounded-md shadow-md ${theme ? "bg-gray-700":"bg-white"} border-gray-200 relative`}>
                 <Menue openMenue={isOpen}
                        setOpenMenue={setIsOpen}
                 />
@@ -76,6 +77,7 @@ const TrashList: React.FC = ()=> {
                         </div>
                     }
                 </div>
+            </div>
            
         </>
     );
