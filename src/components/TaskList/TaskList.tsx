@@ -85,8 +85,8 @@ const TaskList: React.FC = () => {
                             </div>
 
                             <div className='flex flex-row items-center gap-2 cursor-pointer'>
-                                <div className='flex justify-center items-center gap-1 border border-gray-200 
-                                font-semibold px-2 py-1 rounded-md hover:bg-gray-200 hover:border-gray-300 ease-in-out'>
+                                <div className={` ${theme ? "hover:bg-gray-600 hover:border-gray-300":"hover:bg-gray-200 hover:border-gray-300"} flex justify-center items-center gap-1 border border-gray-200 
+                                font-semibold px-2 py-1 rounded-md ease-in-out`}>
                                     <Clock3 size={20} color={`${theme ? "white":"black"}`}/>
                                     <div className={`${theme ? "text-gray-200":"text-black"}`}>{item.date}</div>
                                 </div>
@@ -103,7 +103,7 @@ const TaskList: React.FC = () => {
             ) :  <div className='font-josefin font-semibold text-gray-400'>Aucune Taches</div>}
 
             {task.length > 0 && 
-                <div className='text-sm font-serif font-medium text-gray-600'>
+                <div className={`${theme ? "text-gray-200":"text-gray-600"} text-sm font-serif font-medium `}>
                     Il reste {task.length} taches
                 </div>}
             
