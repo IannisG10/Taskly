@@ -97,7 +97,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     // Effet de bord pour  sauvegarder les taches importantes dans le session storage 
     useEffect(()=>{
         sessionStorage.setItem("Favs",JSON.stringify(favTask));
-    },[favTask])
+    },[favTask]);
+
+    useEffect(()=>{
+        console.log("La valeur du theme est ",theme);
+    },[theme])
 
 
     const addTask = () => {
@@ -188,8 +192,10 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const changeTheme = () => {
-        setTheme(!theme);
-        console.log(theme)
+        setTheme(prevTheme => {
+            const currentTheme = !prevTheme;
+            return currentTheme;
+        });
     }
     
 

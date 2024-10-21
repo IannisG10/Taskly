@@ -30,7 +30,9 @@ const SearchBar: React.FC = () => {
                        value={searchTask}
                        onChange={handleSearchBar}
                     />
-                    <Search className='absolute right-1 cursor-pointer'/> 
+                    <Search className='absolute right-1 cursor-pointer'
+                            color="white"
+                    /> 
                 </div>
                 
                 {searchTask !== "" ?
