@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarDays,ListTodo,Trash2,Star } from "lucide-react";
+import { ListTodo,Trash2,Star,ClipboardCheck } from "lucide-react";
 import { Moon,Sun } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Switch } from "../ui/switch";
@@ -42,8 +42,8 @@ const SideBar: React.FC<sideBarProps> = ({openMenue}) => {
                         </div>
 
                         <div className={`${theme ? "hover:bg-gray-600":"hover:bg-gray-200" } flex items-center gap-1 ml-4  hover:rounded-sm p-2`}>
-                            <CalendarDays size={21} color={theme ? "white":"black"}/>
-                            <h3 className={`${theme ? "text-white":"text-black"} text-sm font-semibold`}>Aujourd'hui</h3>
+                            <ClipboardCheck size={21} color={theme ? "white":"black"}/>
+                            <h3 className={`${theme ? "text-white":"text-black"} text-sm font-semibold`}>Terminé</h3>
                         </div>
 
                         <div className={`${theme ? "hover:bg-gray-600":"hover:bg-gray-200" } flex items-center gap-1 ml-4  hover:rounded-sm p-2`}>

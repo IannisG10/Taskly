@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTask } from "@/hook/TaskContext";
 import { Checkbox } from "../ui/checkbox";
 import { Trash2 } from "lucide-react";
@@ -6,8 +6,8 @@ import { Clock3 } from "lucide-react";
 import { Star } from "lucide-react";
 
 const TaskList: React.FC = () => {
-    const { task,deleteTask,taskNotFound,reserchTask,favingTask,theme } = useTask();
-    const [checkedTask,setCheckedTask] = useState<boolean>(false);
+    const { task,deleteTask,taskNotFound,reserchTask,favingTask,doneTask,theme } = useTask();
+    
 
     return(
         <div className='flex flex-col gap-2 w-1/4 relative'>
@@ -58,12 +58,12 @@ const TaskList: React.FC = () => {
                             <div className='flex justify-between items-center'>
                                 <div className='flex flex-row items-center'>
                                     <div>
-                                        <Checkbox checked={checkedTask}
-                                            onCheckedChange={()=>{setCheckedTask(!checkedTask)}}
+                                        <Checkbox checked={item.isDone}
+                                            onCheckedChange={()=>{doneTask(item.id)}}
                                         />
                                     </div>
                                     <div className={`${theme ? "text-gray-200":"text-black"} inline-block font-medium text-base ml-1 w-auto`}>
-                                        {checkedTask ? <s>{item.description}</s> : <p>{item.description}</p>}
+                                        {item.isDone ? <s>{item.description}</s> : <p>{item.description}</p>}
                                     </div>
                                 </div>
                                 <div className='hover:cursor-pointer'

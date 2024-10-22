@@ -19,7 +19,7 @@ const FavList: React.FC = ()=> {
 
                 <div className='flex flex-col justify-center items-center w-1/4'>
                     <div className='my-2'>
-                        <h1 className='text-3xl italic font-bold font-josefin'>Taches Importantes</h1>
+                        <h1 className={`${theme ? "text-white" : "text-black"} text-3xl italic font-bold font-josefin`}>Taches Importantes</h1>
                     </div>
 
                     {favTask.length > 0 ?

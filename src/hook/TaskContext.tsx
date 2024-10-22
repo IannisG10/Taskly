@@ -7,7 +7,8 @@ interface Task {
     tags: string,
     date: any,
     TagList: string[],
-    isFav: boolean
+    isFav: boolean,
+    isDone: boolean
 }
 
 // declaration du type pour l'etat qui va capturer les erreurs des champs 
@@ -36,10 +37,13 @@ interface TaskContextType {
     setSearchTask: (value: string) => void,
     favTask: Task[],
     setFavTask:(fav: Task[]) => void,
+    taskDone: Task[],
+    setTaskDone: (done: Task[]) => void,
     addTask: () => void,
     deleteTask: (id: number) => void,
     favingTask: (id: number) => void,
     restoreTask: (id: number) => void,
+    doneTask: (id: number) => void,
     searchTerm: (term: string)  => void,
     taskNotFound: boolean,
     setTaskNotfound : (value: boolean) => void,
@@ -78,7 +82,12 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [favTask,setFavTask] = useState<Task[]>(()=> {
         const storedFavTask = sessionStorage.getItem("Favs");
         return storedFavTask ? JSON.parse(storedFavTask) : []
-    })
+    });
+    const [taskDone,setTaskDone] = useState<Task[]>(()=> {
+        const storedTaskDone = sessionStorage.getItem("Done");
+        return storedTaskDone ? JSON.parse(storedTaskDone) : []
+    });
+    
     const [theme,setTheme] = useState<boolean>(false);
     
     useEffect(()=> {
@@ -86,6 +95,10 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         setFavTask(() => {
             const storeFavs = task.filter(tasks => tasks.isFav);
             return storeFavs;
+        })
+        setTaskDone(()=>{
+            const storeDone = task.filter(tasks => tasks.isDone);
+            return storeDone;
         })
     },[task])
 
@@ -101,7 +114,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     useEffect(()=>{
         console.log("La valeur du theme est ",theme);
-    },[theme])
+    },[theme]);
+
+    useEffect(() => {
+        sessionStorage.setItem("Done",JSON.stringify(taskDone));
+    },[taskDone]);
 
 
     const addTask = () => {
@@ -111,7 +128,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             tags: tagValue,
             date: date.toLocaleDateString(),
             TagList: tagValue.split(","),
-            isFav: false
+            isFav: false,
+            isDone: false
         }
 
         const newErrors: ErrorInput = {}
@@ -169,6 +187,15 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         )
     }
 
+    const doneTask = (id: number) => {
+        
+        //La tache se met à jour en fonction de la propriété isDone 
+        setTask(prevTask => {
+            const TaskCheked = prevTask.map(tasks => tasks.id === id ? {...tasks,isDone: tasks.isDone} : tasks);
+            return TaskCheked;
+        })
+    }
+
     const favingTask = (id: number) => {
         // Mettre à jour l'etat `task` afin de modifier les valeurs boolean de isFav
         setTask(prevTask => {
@@ -202,8 +229,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     return(
         <TaskContext.Provider 
             value={{task,setTask,reserchTask,setReserchtask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,searchTerm,
-            favingTask,favTask,setFavTask,taskNotFound,setTaskNotfound,inputErr,setInputErr,theme,setTheme,changeTheme}}>
+            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,searchTerm,taskDone,setTaskDone,
+            doneTask,favingTask,favTask,setFavTask,taskNotFound,setTaskNotfound,inputErr,setInputErr,theme,setTheme,changeTheme}}>
                 {children}
         </TaskContext.Provider>
     );

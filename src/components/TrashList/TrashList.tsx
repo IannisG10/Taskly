@@ -8,6 +8,7 @@ import { ArchiveRestore } from "lucide-react";
 
 const TrashList: React.FC = ()=> {
     const { trashedTask,restoreTask,theme } = useTask();
+
     const [isOpen,setIsOpen] = useState<boolean>(false)
 
     useEffect(()=> {
@@ -23,7 +24,7 @@ const TrashList: React.FC = ()=> {
                 <SideBar openMenue={isOpen}/>
                 <div className='flex flex-col justify-center items-center w-1/4'>
                     <div className='my-2'>
-                        <h1 className='text-3xl font-bold font-josefin italic '>Taches supprimés</h1>
+                        <h1 className={`${theme ? "text-white" : "text-black"} text-3xl font-bold font-josefin italic`}>Taches supprimés</h1>
                     </div>
                     {trashedTask.length > 0 ?
                         trashedTask.map((item,index) => (
@@ -72,7 +73,7 @@ const TrashList: React.FC = ()=> {
                     }
 
                     {trashedTask.length > 0 &&
-                        <div className=' flex justify-start text-sm font-serif font-medium text-gray-600 m-2'>
+                        <div className={`flex justify-start text-sm font-serif font-medium text-gray-600 m-2 ${theme ? "text-gray-400" :""}`}>
                             Il y a {trashedTask.length} tâches supprimées
                         </div>
                     }
