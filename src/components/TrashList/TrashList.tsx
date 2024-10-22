@@ -35,7 +35,7 @@ const TrashList: React.FC = ()=> {
                                     <div>
                                         <Checkbox/>
                                     </div>
-                                    <div className='font-medium text-base ml-1 w-auto inline-block'>
+                                    <div className={`${theme ? "text-gray-200" : "text-black"} font-medium text-base ml-1 w-auto inline-block`}>
                                         {item.description}
                                     </div>
                                 </div>
@@ -51,18 +51,18 @@ const TrashList: React.FC = ()=> {
                                 </div>
 
                                 <div className='flex flex-row items-center gap-2 cursor-pointer'>
-                                    <div className='flex justify-center items-center gap-1 
-                                            border-gray-200 border font-semibold px-2 py-1 rounded-md hover:bg-gray-200 hover:border-gray-300 ease-in-out'>
-                                        <Clock3 size={20}/>
-                                        <div>
+                                    <div className={`flex justify-center items-center gap-1 ${theme ? "hover:bg-gray-600 hover:border-gray-300":"hover:bg-gray-200 hover:border-gray-300"}
+                                            border-gray-200 border font-semibold px-2 py-1 rounded-md hover:bg-gray-200 hover:border-gray-300 ease-in-out`}>
+                                        <Clock3 size={20} color={`${theme ? "white":"black"}`}/>
+                                        <div className={`${theme ? "text-gray-200":"text-black"}`}>
                                             {item.date}
                                         </div>
                                     </div>
-                                    <div className='p-2 hover:bg-gray-200 cursor-pointer rounded-md'
+                                    <div className={`p-2 cursor-pointer rounded-md ${theme ? "hover:bg-gray-500":"hover:bg-gray-200"}`}
                                          onClick={()=> {restoreTask(item.id)}}   
                                          title="Restaurer la tâches"
                                     >
-                                        <ArchiveRestore size={20}/>
+                                        <ArchiveRestore size={20} color={`${theme ? "white":"black"}`}/>
                                     </div>
                                 </div>
                             </div>
