@@ -7,7 +7,6 @@ const Favorite: React.FC = () => {
     return(
         <>
                 <FavList/>
-            
         </>
     )
 }
