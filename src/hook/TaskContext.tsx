@@ -92,6 +92,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
+        console.log(task);
         setFavTask(() => {
             const storeFavs = task.filter(tasks => tasks.isFav);
             return storeFavs;
@@ -112,9 +113,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         sessionStorage.setItem("Favs",JSON.stringify(favTask));
     },[favTask]);
 
-    useEffect(()=>{
-        console.log("La valeur du theme est ",theme);
-    },[theme]);
 
     useEffect(() => {
         sessionStorage.setItem("Done",JSON.stringify(taskDone));
@@ -137,7 +135,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
             setTask(prevTask => {
                         const updateTask = [...prevTask, newTask];
-                        console.log("tahes ajoutés:",updateTask);
+                 
                         return updateTask;
                      }
             );
@@ -188,10 +186,9 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const doneTask = (id: number) => {
-        
         //La tache se met à jour en fonction de la propriété isDone 
         setTask(prevTask => {
-            const TaskCheked = prevTask.map(tasks => tasks.id === id ? {...tasks,isDone: tasks.isDone} : tasks);
+            const TaskCheked = prevTask.map(tasks => tasks.id === id ? {...tasks,isDone: !tasks.isDone} : tasks);
             return TaskCheked;
         })
     }
