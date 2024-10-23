@@ -22,7 +22,7 @@ const TrashList: React.FC = ()=> {
                        setOpenMenue={setIsOpen}
                 />
                 <SideBar openMenue={isOpen}/>
-                <div className='flex flex-col justify-center items-center w-1/4'>
+                <div className='flex flex-col justify-center items-center w-1/4 gap-2'>
                     <div className='my-2'>
                         <h1 className={`${theme ? "text-white" : "text-black"} text-3xl font-bold font-josefin italic`}>Taches supprimés</h1>
                     </div>
