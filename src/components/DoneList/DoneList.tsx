@@ -52,12 +52,12 @@ const DoneList: React.FC = () => {
                                 <div className="flex flex-row items-center gap-2">
                                     <div className={`${theme ? "hover:bg-gray-600 hover:border-gray-300":"hover:bg-gray-200 hover:border-gray-300"} flex justify-center items-center gap-1 border border-gray-200 font-semibold px-2 py-1 rounded-md cursor-pointer ease-in-out`}>
                                         <Clock3 size={20} color={`${theme ? "white":"black"}`}/>
-                                        <div>
+                                        <div className={`${theme ? "text-gray-200":"text-black"}`}>
                                             {item.date}
                                         </div>
                                     </div>
-                                    <div className="p-2 hover:bg-gray-200 cursor-pointer rounded-md">
-                                        <Trash2 size={20}/>
+                                    <div className={`p-2 hover:bg-gray-200 cursor-pointer rounded-md ${theme ? "hover:bg-gray-500":"hover:bg-gray-200"}`}>
+                                        <Trash2 size={20} color={`${theme ? "white":"black"}`}/>
                                     </div>
                                 </div>
                             </div>
