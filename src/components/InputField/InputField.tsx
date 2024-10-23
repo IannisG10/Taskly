@@ -79,7 +79,7 @@ const InputField: React.FC= () => {
                             <div className='text-gray-100'>Date d'échéance</div>
                         </button>
                         {showCalendar ? 
-                            <div className='absolute top-28'
+                            <div className='absolute top-28 z-20'
                                 ref={inputDateRef}
                             >
                                 <Calendar mode="single"

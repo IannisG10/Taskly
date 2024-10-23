@@ -73,7 +73,7 @@ const TrashList: React.FC = ()=> {
                     }
 
                     {trashedTask.length > 0 &&
-                        <div className={`flex justify-start text-sm font-serif font-medium text-gray-600 m-2 ${theme ? "text-gray-400" :""}`}>
+                        <div className={`flex justify-start text-sm font-serif font-medium m-2 ${theme ? "text-gray-200" :"text-gray-600"}`}>
                             Il y a {trashedTask.length} tâches supprimées
                         </div>
                     }
