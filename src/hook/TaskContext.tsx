@@ -41,6 +41,8 @@ interface TaskContextType {
     setTaskDone: (done: Task[]) => void,
     addTask: () => void,
     deleteTask: (id: number) => void,
+    deleteFavTask: (id: number) => void,
+    deleteDoneTask: (id: number) => void,
     favingTask: (id: number) => void,
     restoreTask: (id: number) => void,
     doneTask: (id: number) => void,
@@ -157,6 +159,33 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         }
     }
 
+    const deleteDoneTask = (id: number) => {
+        //A Chaque modification de l'etat TrashedTask 
+        setTrashedTask(()=>{
+            
+            const taskToDelete = taskDone.filter(tasks => tasks.id === id);
+            const concatTrash = trashedTask.concat(taskToDelete);
+
+            return concatTrash;
+        });
+
+        setTaskDone(prevTask => prevTask.filter(tasks => tasks.id !== id));
+    }
+
+    const deleteFavTask = (id: number) => {
+        // Place les tâches favorites supprimées dans la corbeille
+        setTrashedTask(()=>{
+            // Filtre la tache qui doit être supprimée 
+            const taskToDelete = favTask.filter(favTasks => favTasks.id === id);
+            //Combine la taches filtré avec l'etat de la corbeille "TrashedTask"
+            const concatTrash = trashedTask.concat(taskToDelete);
+
+            return concatTrash;
+        })
+
+        setFavTask(prevTask => prevTask.filter(tasks => tasks.id !== id));
+    }
+
     const deleteTask = (id: number) => {
         setTrashedTask(() => {
             //Filtre les taches qui doivent etre placée dans la corbeille
@@ -221,12 +250,15 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             return currentTheme;
         });
     }
+
+
+
     
 
     return(
         <TaskContext.Provider 
             value={{task,setTask,reserchTask,setReserchtask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,searchTerm,taskDone,setTaskDone,
+            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,searchTerm,deleteFavTask,deleteDoneTask,taskDone,setTaskDone,
             doneTask,favingTask,favTask,setFavTask,taskNotFound,setTaskNotfound,inputErr,setInputErr,theme,setTheme,changeTheme}}>
                 {children}
         </TaskContext.Provider>

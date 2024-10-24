@@ -54,7 +54,9 @@ const FavList: React.FC = ()=> {
                                                 {item.date}
                                             </div>
                                     </div>
-                                    <div className={`${theme ? "hover:bg-gray-500":"hover:bg-gray-200"} p-2 hover:bg-gray-200 cursor-pointer rounded-md`}>
+                                    <div className={`${theme ? "hover:bg-gray-500":"hover:bg-gray-200"} p-2 hover:bg-gray-200 cursor-pointer rounded-md`}
+                                         
+                                    >
                                         <Trash2 size={20} color={`${theme ? "white":"black"}`}/>
                                     </div>
                                 </div>

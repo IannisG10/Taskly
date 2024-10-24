@@ -9,7 +9,7 @@ import { Checkbox } from "../ui/checkbox";
 const DoneList: React.FC = () => {
 
     const [isOpen,setIsOpen] = useState<boolean>(false);
-    const { taskDone,theme,doneTask } = useTask();
+    const { taskDone,theme,doneTask,deleteDoneTask } = useTask();
     return(
         <>
             <div className={`flex flex-col justify-center items-center gap-7 mx-5 my-5 py-3 rounded-md ${theme ? "bg-gray-700":"bg-white"} border-gray-200 shadow-md border`}>
@@ -56,7 +56,9 @@ const DoneList: React.FC = () => {
                                             {item.date}
                                         </div>
                                     </div>
-                                    <div className={`p-2 hover:bg-gray-200 cursor-pointer rounded-md ${theme ? "hover:bg-gray-500":"hover:bg-gray-200"}`}>
+                                    <div className={`p-2 hover:bg-gray-200 cursor-pointer rounded-md ${theme ? "hover:bg-gray-500":"hover:bg-gray-200"}`}
+                                         onClick={()=>{deleteDoneTask(item.id)}}
+                                    >
                                         <Trash2 size={20} color={`${theme ? "white":"black"}`}/>
                                     </div>
                                 </div>
