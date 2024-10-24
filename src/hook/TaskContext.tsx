@@ -184,6 +184,10 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             const taskToDelete = favTask.filter(favTasks => favTasks.id === id);
             //Combine la taches filtré avec l'etat de la corbeille "TrashedTask"
             const concatTrash = trashedTask.concat(taskToDelete);
+            setTask(prevTask => {
+                const taskDel = prevTask.filter(tasks => tasks.id !== id);
+                return taskDel;
+            })
 
             return concatTrash;
         })

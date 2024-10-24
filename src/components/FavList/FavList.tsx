@@ -9,7 +9,7 @@ import { Clock3 } from "lucide-react";
 const FavList: React.FC = ()=> {
 
     const [isOpen,setIsOpen] = useState<boolean>(false);
-    const { favTask,theme } = useTask();
+    const { favTask,theme,deleteFavTask } = useTask();
 
     return(
         <>
@@ -55,7 +55,8 @@ const FavList: React.FC = ()=> {
                                             </div>
                                     </div>
                                     <div className={`${theme ? "hover:bg-gray-500":"hover:bg-gray-200"} p-2 hover:bg-gray-200 cursor-pointer rounded-md`}
-                                         
+                                         title="Suprimmer"
+                                         onClick={()=>{deleteFavTask(item.id)}}
                                     >
                                         <Trash2 size={20} color={`${theme ? "white":"black"}`}/>
                                     </div>
