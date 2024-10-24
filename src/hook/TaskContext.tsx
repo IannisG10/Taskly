@@ -118,6 +118,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     useEffect(() => {
         sessionStorage.setItem("Done",JSON.stringify(taskDone));
+       
     },[taskDone]);
 
 
@@ -165,6 +166,10 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             
             const taskToDelete = taskDone.filter(tasks => tasks.id === id);
             const concatTrash = trashedTask.concat(taskToDelete);
+            setTask(prevtask => {
+                    const taskDel = prevtask.filter(tasks => tasks.id !== id);
+                    return taskDel;
+            })
 
             return concatTrash;
         });
