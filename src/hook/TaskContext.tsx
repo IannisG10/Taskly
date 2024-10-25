@@ -1,3 +1,4 @@
+
 import React, { ReactNode, createContext, useContext, useState } from "react";
 import { useEffect } from "react";
 // déclaration du type de la tache 
@@ -142,6 +143,18 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
                         return updateTask;
                      }
             );
+
+            fetch("http://localhost:3000/api/tasks",{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(task)
+            }).then(res => res.json())
+              .then(data => {
+                    console.log("Taches ajoutée : ",data)
+              })
+              .catch(error => console.error("Erreur lors de l'ajout de la tâche",error));
             
 
             setInputValue("");
