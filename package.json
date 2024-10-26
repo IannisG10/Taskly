@@ -29,6 +29,7 @@
     "lottie-web": "^5.12.2",
     "lucide": "^0.447.0",
     "lucide-react": "^0.447.0",
+    "mongoose": "^8.7.2",
     "nodemon": "^3.1.7",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",

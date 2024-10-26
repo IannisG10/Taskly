@@ -96,6 +96,19 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
         console.log(task);
+        const description = task.map(tasks => ({description: tasks.description}));
+
+        fetch("http://localhost:3000/api/tasks",{
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(description)
+        }).then(res => res.json())
+        .then(data => {
+                console.log("Taches ajoutée : ",data)
+        })
+        .catch(error => console.error("Erreur lors de l'ajout de la tâche",error));
         setFavTask(() => {
             const storeFavs = task.filter(tasks => tasks.isFav);
             return storeFavs;
@@ -143,19 +156,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
                         return updateTask;
                      }
             );
-
-            fetch("http://localhost:3000/api/tasks",{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(task)
-            }).then(res => res.json())
-              .then(data => {
-                    console.log("Taches ajoutée : ",data)
-              })
-              .catch(error => console.error("Erreur lors de l'ajout de la tâche",error));
-            
 
             setInputValue("");
             setTagValue("");
