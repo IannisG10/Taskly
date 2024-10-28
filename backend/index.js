@@ -1,42 +1,34 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const Task = require("./model/task")
 
 const app = express();
-const PORT = 3000;
-const Url = "mongodb://localhost:27017/taskly";
-
-app.use(cors());
+//Middleware
 app.use(express.json());
+app.use(cors());
 
+const PORT = 3000;
 
-mongoose.connect(Url)
-                .then(()=>{
-                    console.log("Connecté à la base de données")
-                })
-                .catch((err)=>{
-                    console.log("erreur de connexion à la base de données")
-                })
+mongoose.connect("mongodb://localhost:27017/")
 
 app.get("/",(req,res)=>{
-    res.send("Le serveur a démarré");
+    res.send("Serveur demarré sur le port 3000")
 })
 
-app.post("/api/tasks",async (req,res) => {
-    const description = req.body;
-
+app.post("/api/tasks",(req,res)=>{
+    
     try{
-        const newTask = new Task({description});
-        await newTask.save();
-
+        const desc = req.body;
+        console.log("Tâches reçu",desc);
     }catch(err){
-        console.log("erreur d'envoies des données",err);
+        console.error("Erreur de reception des données",err);
     }
-    console.log("Taches recu",description);
-    res.status(201).json(description);
 })
 
 app.listen(PORT,()=>{
-    console.log(`Serveur en écoute sur le port ${PORT}`);
+    try{
+        console.log(`Serveur en écoute sur le port ${PORT}`);
+    }catch(err){
+        console.error("Probleme d'acces au serveur");
+    }
 })
