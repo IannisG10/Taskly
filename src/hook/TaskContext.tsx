@@ -162,7 +162,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const sendDataToServer = () => {
-        fetch("https://taskly-t74u.onrender.com",{
+        fetch("https://taskly-t74u.onrender.com/task",{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

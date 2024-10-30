@@ -12,6 +12,15 @@ app.get("/",(req,res) => {
     res.send("Bienvenue sur mon serveur Express sur render ")
 })
 
+app.post("/task",(req,res) => {
+    const task = req.body;
+    try{
+        res.json(task);
+    }catch(err){
+        console.error("Mauvaise reception des données ",err);
+    }
+} )
+
 app.listen(PORT,() => {
     console.log(`Serveur lancé sur le port ${PORT}`)
 })
