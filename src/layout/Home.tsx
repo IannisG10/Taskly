@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     return(
         <>
             
-                    <div className={`flex flex-col justify-center items-center gap-7 mx-5 my-5 py-3 rounded-md border-gray-200 shadow-md  ${theme ? "sm:bg-gray-700":"sm:bg-white"} relative`}>
+                    <div className={`flex flex-col justify-center items-center gap-7 mx-5 my-5 py-3 rounded-md border-gray-200 shadow-md  ${theme ? "bg-gray-700":"bg-white"} relative`}>
                         <Menue openMenue={isOpen}
                             setOpenMenue={setIsOpen}
                         />

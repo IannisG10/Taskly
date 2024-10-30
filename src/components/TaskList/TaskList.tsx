@@ -10,7 +10,7 @@ const TaskList: React.FC = () => {
     
 
     return(
-        <div className='flex flex-col gap-2 w-1/4 relative'>
+        <div className='flex flex-col gap-2 sm:w-1/4 w-4/5 relative'>
 
             {taskNotFound ? reserchTask.map((item,index) =>(
                 <div key={index}
