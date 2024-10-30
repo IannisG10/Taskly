@@ -16,9 +16,9 @@ const DoneList: React.FC = () => {
                 <Menue openMenue={isOpen} setOpenMenue={setIsOpen}/>
                 <SideBar openMenue={isOpen}/>
 
-                <div className="flex flex-col justify-center items-center w-1/4">
-                    <div className="">
-                        <h1 className={`text-3xl italic font-bold font-josefin ${theme ? "text-white" : "text-black"} `}>Tâches Terminée</h1>
+                <div className="flex flex-col justify-center items-center sm:w-1/4 w-3/4">
+                    <div>
+                        <h1 className={`sm:text-3xl text-2xl italic font-bold font-josefin ${theme ? "text-white" : "text-black"} `}>Tâches Terminée</h1>
                     </div>
 
                     {taskDone.length > 0 ? 
@@ -68,10 +68,14 @@ const DoneList: React.FC = () => {
                                 Aucunes Taches Terminée
                             </div>
                     }
+                    {taskDone.length > 0 && 
+                    
+                        <div className={`${theme ? "text-gray-200":"text-gray-600"} text-sm font-serif font-medium`}>
+                            Il y a {taskDone.length} tâches Terminée
+                        </div>
+                    }
 
                 </div>
-
-
             </div>
         </>
     )

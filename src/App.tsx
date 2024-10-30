@@ -14,13 +14,12 @@ const App: React.FC = ()=> {
     return(
         <>
                 <TaskProvider>
-                  <Routes>
-                      <Route path='/' element={<Home/>}/>
-                      <Route path='/terminé' element={<Done/>}/>
-                      <Route path='/corbeille' element={<Trash/>}/>
-                      <Route path='/important' element={<Favorite/>}/>
+                    <Routes>
+                        <Route path='/' element={<Home/>}/>
+                        <Route path='/terminé' element={<Done/>}/>
+                        <Route path='/important' element={<Favorite/>}/>
+                        <Route path='/corbeille' element={<Trash/>}/>
                     </Routes>
-
                 </TaskProvider>
                   
                

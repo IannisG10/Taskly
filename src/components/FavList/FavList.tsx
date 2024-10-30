@@ -13,13 +13,13 @@ const FavList: React.FC = ()=> {
 
     return(
         <>
-            <div className={`flex flex-col justify-center items-center gap-7 mx-5 my-5 py-3 rounded-md ${theme ? "bg-gray-700":"bg-white"} border-gray-200 shadow-md relative`}>
+            <div className={`flex flex-col justify-center items-center gap-7 mx-5 my-5 py-3 rounded-md ${theme ? "bg-gray-700":"bg-white"} border-gray-200 w-full shadow-md relative`}>
                 <Menue openMenue={isOpen} setOpenMenue={setIsOpen}/>
                 <SideBar openMenue={isOpen}/>
 
-                <div className='flex flex-col justify-center items-center w-1/4'>
+                <div className='flex flex-col justify-center items-center sm:w-1/4 w-3/4'>
                     <div className='my-2'>
-                        <h1 className={`${theme ? "text-white" : "text-black"} text-3xl italic font-bold font-josefin`}>Taches Importantes</h1>
+                        <h1 className={`${theme ? "text-white" : "text-black"} sm:text-3xl text-2xl italic font-bold font-josefin`}>Taches Importantes</h1>
                     </div>
 
                     {favTask.length > 0 ?
