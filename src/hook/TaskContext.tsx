@@ -93,17 +93,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     
     const [theme,setTheme] = useState<boolean>(false);
 
-    useEffect(()=>{
-        fetch("http://localhost:3000")
-        .then(res => res.json())
-        .then(()=>{console.log("CoConnecté au serveur")})
-        .catch(err => console.log("Erreur de connexion au serveur ", err));
-    },[])
+    
     
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
-       // sendDataToserver();
-
+        sendDataToServer();
 
         setFavTask(() => {
             const storeFavs = task.filter(tasks => tasks.isFav);
@@ -148,12 +142,9 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
             setTask(prevTask => {
                         const updateTask = [...prevTask, newTask];
-                 
                         return updateTask;
                      }
             );
-
-
             setInputValue("");
             setTagValue("");
             setInputErr(newErrors);
@@ -170,20 +161,17 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         }
     }
 
-    // const sendDataToserver = () => {
-    //     const description = task.filter(tasks => tasks.description)
-
-    //     fetch("http://localhost:3000/api/tasks",{
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(description)
-
-    //     }).then(res => res.json())
-    //       .then(data => console.log("Données recu :",data))
-    //       .catch(err => console.log("Erreur lors de l'envoie des données au serveur",err));
-    // }
+    const sendDataToServer = () => {
+        fetch("https://taskly-t74u.onrender.com",{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+        }).then(res => res.json())
+            .then(data => console.log("Données envoyées au serveur",data))
+            .catch(err => console.error("Erreur d'envoies des données au serveur",err))
+    }
 
     const deleteDoneTask = (id: number) => {
         //A Chaque modification de l'etat TrashedTask 
