@@ -58,7 +58,7 @@ const InputField: React.FC= () => {
     return(
         <>
             {theme ? 
-                    <div className='flex flex-col justify-center items-center gap-2 w-1/4 relative'>
+                    <div className='flex flex-col justify-center items-center gap-2 sm:w-1/4 w-4/5 relative'>
                         <TabsComponent/>
                         <div className=' flex flex-col justify-center items-center w-full'>
                             <input type="text"
@@ -108,7 +108,7 @@ const InputField: React.FC= () => {
                         </button>
                 </div> : 
 
-            <div className='flex flex-col justify-center items-center gap-2 w-1/4 relative'>
+            <div className='flex flex-col justify-center items-center gap-2 sm:w-1/4 w-4/5 relative'>
                 <TabsComponent/>
                 <div className=' flex flex-col justify-center items-center w-full'>
                     <input type="text"

@@ -11,7 +11,7 @@ const TabsComponent: React.FC = () => {
         <>
             {theme ? 
                 <Tabs defaultValue="Toutes" className=' flex justify-center shadow items-center w-full'>
-                    <TabsList className="w-full border border-gray-600 shadow-inner bg-gray-400">
+                    <TabsList className="w-full border border-gray-600 shadow-inner sm:bg-gray-400 ">
                         <TabsTrigger value="Toutes" className="w-full text-black bg-gray-400">Toutes</TabsTrigger>
                         <TabsTrigger value="Aujourd'hui" className="w-full text-black bg-gray-400">Aujourd'hui</TabsTrigger>
                     </TabsList>
