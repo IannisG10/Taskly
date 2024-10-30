@@ -67,6 +67,11 @@ const FavList: React.FC = ()=> {
                                 Aucunes Tâches Importantes
                             </div>
                     }
+                    {favTask.length > 0 &&
+                        <div className={`${theme ? "text-gray-200":"text-gray-600"} text-sm font-serif font-medium`}>
+                            Il y a {favTask.length} tâches importantes 
+                        </div>
+                    }
 
                 </div>
             </div>
