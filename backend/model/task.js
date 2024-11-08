@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
 
-const TaskSchema = new mongoose.Schema({
+const taskSchema = new mongoose.Schema({
     
 })

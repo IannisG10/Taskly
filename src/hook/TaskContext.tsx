@@ -11,7 +11,6 @@ interface Task {
     isFav: boolean,
     isDone: boolean
 }
-
 // declaration du type pour l'etat qui va capturer les erreurs des champs 
 interface ErrorInput {
     descError?: string,
@@ -22,20 +21,20 @@ interface ErrorInput {
 interface TaskContextType {
     task: Task[],
     setTask: (value: Task[]) => void,
-    reserchTask: Task[],
-    setReserchtask: (value: Task[]) => void,
     trashedTask: Task[],
     setTrashedTask: (value: Task[]) => void,
     inputValue: string,
     setInputValue: (value: string) => void,
+    searchTask: string,
+    setSearchTask: (value: string) => void,
+    taskIsFound: boolean,
+    setTaskIsFound: (value: boolean) => void
     tagValue: string,
     setTagValue: (value: string) => void,
     date: Date,
     setDate: (date: Date) => void,
     inputErr: ErrorInput,
     setInputErr: (Err: ErrorInput) => void,
-    searchTask: string,
-    setSearchTask: (value: string) => void,
     favTask: Task[],
     setFavTask:(fav: Task[]) => void,
     taskDone: Task[],
@@ -44,12 +43,10 @@ interface TaskContextType {
     deleteTask: (id: number) => void,
     deleteFavTask: (id: number) => void,
     deleteDoneTask: (id: number) => void,
+    searchTerm: (term: string) => void,
     favingTask: (id: number) => void,
     restoreTask: (id: number) => void,
     doneTask: (id: number) => void,
-    searchTerm: (term: string)  => void,
-    taskNotFound: boolean,
-    setTaskNotfound : (value: boolean) => void,
     theme: boolean,
     setTheme: (them: boolean) => void,
     changeTheme: ()=> void
@@ -67,13 +64,15 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     const [inputValue,setInputValue] = useState<string>("");
     const [tagValue,setTagValue] = useState<string>("");
-    const [searchTask ,setSearchTask] = useState<string>("");
+    const [searchTask,setSearchTask] = useState<string>("");
+
+    const [taskIsFound,setTaskIsFound] = useState<boolean>(false)
+    
 
     const [task,setTask] = useState<Task[]>(()=>{
         const storedTask = sessionStorage.getItem("Task");
-         return storedTask ? JSON.parse(storedTask) : []
+        return storedTask ? JSON.parse(storedTask) : []
     });
-    const [reserchTask,setReserchtask] = useState<Task[]>([]);
 
     const [trashedTask,setTrashedTask] = useState<Task[]>(()=> {
         const storedTrash = sessionStorage.getItem("Trash");
@@ -81,7 +80,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     });
     const [inputErr,setInputErr] = useState<ErrorInput>({})
     const [date,setDate] = useState<Date>(new Date())
-    const [taskNotFound,setTaskNotfound] = useState<boolean>(false);
     const [favTask,setFavTask] = useState<Task[]>(()=> {
         const storedFavTask = sessionStorage.getItem("Favs");
         return storedFavTask ? JSON.parse(storedFavTask) : []
@@ -93,8 +91,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     
     const [theme,setTheme] = useState<boolean>(false);
 
-    
-    
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
         sendDataToServer();
@@ -120,9 +116,9 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     },[favTask]);
 
 
+    // searchTask: String , est la valeur de la barre de recherche dans le composant InpuField.tsx
     useEffect(() => {
         sessionStorage.setItem("Done",JSON.stringify(taskDone));
-       
     },[taskDone]);
 
 
@@ -167,12 +163,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
-                {
-                    "name": "Guerra",
-                    "email": "masosopory@gmail.com"
-                }
-            )
+            body: JSON.stringify(task)
         }).then(res => res.json())
             .then(data => console.log("Données envoyées au serveur",data))
             .catch(err => console.error("Erreur d'envoies des données au serveur",err))
@@ -191,7 +182,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
             return concatTrash;
         });
-
         setTaskDone(prevTask => prevTask.filter(tasks => tasks.id !== id));
     }
 
@@ -224,21 +214,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         })
 
         setTask(prevTask => prevTask.filter(tasks => tasks.id !== id)); //Task est modifiée 
-        setReserchtask(prevTask => prevTask.filter(tasks => tasks.id !== id))
+       
         
-    }
-
-    const searchTerm = (term: string) => {
-
-        task.map((tasks) => tasks.description === term.trimEnd()  ? (()=>{
-            setTaskNotfound(true);
-            const filterTaskSearch: Task[] = task.filter(tasks => tasks.description === term);
-
-            setReserchtask(filterTaskSearch);
-            
-        })()
-        : setTaskNotfound(false)
-        )
     }
 
     const doneTask = (id: number) => {
@@ -257,6 +234,19 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         });   
     }
 
+    const searchTerm = (term: string) => {
+        task.map(tasks => tasks.description === term ?(()=>{
+            console.log("Taches trouvé",searchTask);
+            setTaskIsFound(() => {
+                const task_found_BoleanValue = true
+                return task_found_BoleanValue 
+            })
+        })(): setTaskIsFound(() => {
+            const task_found_BoleanValue = false
+            return task_found_BoleanValue
+        }))
+    }
+
     const restoreTask = (id: number) => {
         setTrashedTask(prevTrash => {
             const taskToRestore = prevTrash.filter(trahs => trahs.id !== id);
@@ -268,7 +258,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             })
             return taskToRestore;
         });
-        
     }
 
     const changeTheme = () => {
@@ -278,15 +267,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         });
     }
 
-
-
-    
-
     return(
         <TaskContext.Provider 
-            value={{task,setTask,reserchTask,setReserchtask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,
-            setSearchTask,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,searchTerm,deleteFavTask,deleteDoneTask,taskDone,setTaskDone,
-            doneTask,favingTask,favTask,setFavTask,taskNotFound,setTaskNotfound,inputErr,setInputErr,theme,setTheme,changeTheme}}>
+            value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,setSearchTask,
+            taskIsFound,setTaskIsFound,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,deleteFavTask,deleteDoneTask,taskDone,setTaskDone,
+            doneTask,favingTask,favTask,setFavTask,searchTerm,inputErr,setInputErr,theme,setTheme,changeTheme}}>
                 {children}
         </TaskContext.Provider>
     );

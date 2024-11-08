@@ -16,6 +16,7 @@ app.post("/task",(req,res) => {
     const task = req.body;
     try{
         res.json(task);
+        console.log("Données reçus :",JSON.parse(task))
     }catch(err){
         console.error("Mauvaise reception des données ",err);
     }
