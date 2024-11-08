@@ -237,21 +237,19 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const searchTerm = (term: string) => {
-        task.map(tasks => tasks.description === term ?(()=>{
-            console.log("Taches trouvé",searchTask);
+        const filterSearch = task.filter(tasks => tasks.description === term)
 
-            setTaskIsFound(() => {
-                const task_found_BoleanValue = true
-                return task_found_BoleanValue 
+        filterSearch.length > 0 ? (()=>{
+            console.log("Taches trouvé",searchTask)
+            setTaskIsFound(()=>{
+                return true
             })
-            setTaskFound_Bysearch(() => {
-                const filterSearch = task.filter(tasks => tasks.description === term)
-                return filterSearch 
+            setTaskFound_Bysearch(()=>{
+                return filterSearch;
             })
-        })(): setTaskIsFound(() => {
-            const task_found_BoleanValue = false
-            return task_found_BoleanValue
-        }))
+        })(): setTaskIsFound(()=>{
+            return false
+        })
     }
 
     const restoreTask = (id: number) => {

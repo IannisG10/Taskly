@@ -13,6 +13,7 @@ const SearchBar: React.FC = () => {
     }
     useEffect(()=>{
         searchTerm(searchTask);
+        console.log(taskIsFound)
     },[searchTask,taskIsFound])
     
     return(
