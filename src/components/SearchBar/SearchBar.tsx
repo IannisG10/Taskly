@@ -37,6 +37,21 @@ const SearchBar: React.FC = () => {
                             color={`${theme ? "white":"black"}`}
                     /> 
                 </div>
+
+                {searchTask !== "" ?
+                    taskIsFound ? 
+                    <div>
+                        <span className="font-josefin font-semibold text-green-500">
+                             Tâche a été trouvé
+                        </span>
+                    </div>
+                    : 
+                    <div>
+                        <span className="font-josefin font-semibold text-red-500">
+                            Aucune tâche n'a été trouvé
+                        </span>
+                    </div>: null
+                }
                 
                 
             </div> 

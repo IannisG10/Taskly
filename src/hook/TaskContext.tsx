@@ -23,6 +23,8 @@ interface TaskContextType {
     setTask: (value: Task[]) => void,
     trashedTask: Task[],
     setTrashedTask: (value: Task[]) => void,
+    taskFound_Bysearch: Task[],
+    setTaskFound_Bysearch: (value: Task[]) => void
     inputValue: string,
     setInputValue: (value: string) => void,
     searchTask: string,
@@ -68,7 +70,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     const [taskIsFound,setTaskIsFound] = useState<boolean>(false)
     
-
+    const [taskFound_Bysearch,setTaskFound_Bysearch] = useState<Task[]>([])
     const [task,setTask] = useState<Task[]>(()=>{
         const storedTask = sessionStorage.getItem("Task");
         return storedTask ? JSON.parse(storedTask) : []
@@ -237,9 +239,14 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const searchTerm = (term: string) => {
         task.map(tasks => tasks.description === term ?(()=>{
             console.log("Taches trouvé",searchTask);
+
             setTaskIsFound(() => {
                 const task_found_BoleanValue = true
                 return task_found_BoleanValue 
+            })
+            setTaskFound_Bysearch(() => {
+                const filterSearch = task.filter(tasks => tasks.description === term)
+                return filterSearch 
             })
         })(): setTaskIsFound(() => {
             const task_found_BoleanValue = false
@@ -270,7 +277,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     return(
         <TaskContext.Provider 
             value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,setSearchTask,
-            taskIsFound,setTaskIsFound,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,deleteFavTask,deleteDoneTask,taskDone,setTaskDone,
+            taskIsFound,setTaskIsFound,taskFound_Bysearch,setTaskFound_Bysearch,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,deleteFavTask,deleteDoneTask,taskDone,setTaskDone,
             doneTask,favingTask,favTask,setFavTask,searchTerm,inputErr,setInputErr,theme,setTheme,changeTheme}}>
                 {children}
         </TaskContext.Provider>

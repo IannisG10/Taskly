@@ -6,51 +6,63 @@ import { Clock3 } from "lucide-react";
 import { Star } from "lucide-react";
 
 const TaskList: React.FC = () => {
-    const { task,deleteTask,taskNotFound,reserchTask,favingTask,doneTask,theme } = useTask();
+    const { task,deleteTask,favingTask,doneTask,theme,taskIsFound,taskFound_Bysearch } = useTask();
     
 
     return(
         <div className='flex flex-col gap-2 sm:w-1/4 w-4/5 relative'>
 
-            {taskNotFound ? reserchTask.map((item,index) =>(
-                <div key={index}
-                     className='flex flex-col relative border px-2 py-2 w-full border-gray-200 rounded-md shadow gap-1'
-                >
-                        <div className='flex justify-start items-center'>
-                            <div>
-                                <Checkbox/>
-                               
-                            </div>
-                            <div className='inline-block font-medium text-base ml-1 w-auto'>
-                                {item.description}
-                            </div>
-                        </div>
-
-                        <div className='flex flex-row items-center gap-1'>
-                            {item.TagList.map((itemTag,index) => (
-                                <div className='w-fit text-xs bg-gray-400 py-1 px-2 rounded-lg font-medium'
-                                        key={index}
-                                >
-                                    {itemTag}
+            {taskIsFound ? 
+                taskFound_Bysearch.map((item,index) => (
+                    <div key={index}
+                         className={`flex flex-col relative border px-2 py-2 w-full ${theme ? "border-gray-400":"border-gray-200"} rounded-md shadow gap-1`}
+                    >
+                            <div className='flex justify-between items-center'>
+                                <div className='flex flex-row items-center'>
+                                    <div>
+                                        <Checkbox checked={item.isDone}
+                                            onCheckedChange={()=>{doneTask(item.id)}}
+                                        />
+                                    </div>
+                                    <div className={`${theme ? "text-gray-200":"text-black"} inline-block font-medium text-base ml-1 w-auto`}>
+                                        {item.isDone ? <s>{item.description}</s> : <p>{item.description}</p>}
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
+                                <div className='hover:cursor-pointer'
+                                    onClick={()=> {favingTask(item.id)}}
+                                    title={`${!item.isFav && "Ajouter aux tâches importantes" }`}
+                                >
+                                   {item.isFav ? <Star size={20}fill="yellow" color={`${theme ? "gray":"black"}`}/> : <Star size={20} color={`${theme ? "white":"black"}`}  />} 
+                                </div>
+                            </div>
 
-                        <div className='flex flex-row items-center gap-2 cursor-pointer'>
-                            <div className='flex justify-center items-center gap-1 border border-gray-200 
-                               font-semibold px-2 py-1 rounded-md hover:bg-gray-200 hover:border-gray-300 ease-in-out'>
-                                <Clock3 size={20}/>
-                                <div>{item.date}</div>
+                            <div className='flex flex-row items-center gap-1'>
+                                {item.TagList.map((itemTag,index) => (
+                                    <div className='w-fit text-xs bg-gray-400 py-1 px-2 rounded-lg font-medium'
+                                            key={index}
+                                    >
+                                        {itemTag}
+                                    </div>
+                                ))}
                             </div>
-                            
-                            <div className='p-2 hover:bg-gray-200 cursor-pointer rounded-md'
-                                 onClick={()=>{deleteTask(item.id)}}
-                            >
-                                <Trash2 size={20}/>
+
+                            <div className='flex flex-row items-center gap-2 cursor-pointer'>
+                                <div className={` ${theme ? "hover:bg-gray-600 hover:border-gray-300":"hover:bg-gray-200 hover:border-gray-300"} flex justify-center items-center gap-1 border border-gray-200 
+                                font-semibold px-2 py-1 rounded-md ease-in-out`}>
+                                    <Clock3 size={20} color={`${theme ? "white":"black"}`}/>
+                                    <div className={`${theme ? "text-gray-200":"text-black"}`}>{item.date}</div>
+                                </div>
+                                
+                                <div className={`${theme ? "hover:bg-gray-500":"hover:bg-gray-200"} p-2 hover:bg-gray-200 cursor-pointer rounded-md`}
+                                    onClick={()=>{deleteTask(item.id)}}
+                                    title="supprimer"
+                                >
+                                    <Trash2 size={20} color={`${theme ? "white":"black"}`}/>
+                                </div>
                             </div>
-                        </div>
-                </div>
-            )) : task.length > 0 ? 
+                    </div>
+                )): 
+                task.length > 0 ? 
                     task.map((item,index) =>(
                     <div key={index}
                          className={`flex flex-col relative border px-2 py-2 w-full ${theme ? "border-gray-400":"border-gray-200"} rounded-md shadow gap-1`}
@@ -100,7 +112,8 @@ const TaskList: React.FC = () => {
                             </div>
                     </div>
                 )
-            ) :  <div className='font-josefin font-semibold text-gray-400'>Aucune Taches</div>}
+            ) :  <div className='font-josefin font-semibold text-gray-400'>Aucune Taches</div>
+            }
 
             {task.length > 0 && 
                 <div className={`${theme ? "text-gray-200":"text-gray-600"} text-sm font-serif font-medium `}>
