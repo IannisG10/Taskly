@@ -2,7 +2,7 @@ import React from "react";
 import { useTask } from "@/hook/TaskContext";
 import { Checkbox } from "../ui/checkbox";
 import { Trash2 } from "lucide-react";
-import { Clock3 } from "lucide-react";
+import { Clock3,Filter } from "lucide-react";
 import { Star } from "lucide-react";
 
 const TaskList: React.FC = () => {
@@ -63,6 +63,9 @@ const TaskList: React.FC = () => {
                     </div>
                 )): 
                 task.length > 0 ? 
+                    <div>
+                       <Filter size={20/>
+                    </div>
                     task.map((item,index) =>(
                     <div key={index}
                          className={`flex flex-col relative border px-2 py-2 w-full ${theme ? "border-gray-400":"border-gray-200"} rounded-md shadow gap-1`}
