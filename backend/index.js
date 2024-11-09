@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect("mongodb+srv://guerraiannis:<db_password>@cluster0.cs7fn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-.then("Connecté à la base de donnée")
-.catch("Erreur de connexion à la base de donnée")
+.then(()=>{console.log("Connexion à la base de données MongoDB Atlas établie")})
+.catch(()=>{console.log("Erreur de connexion à la base de donnée")})
 
 app.get("/",(req,res) => {
     res.send("Bienvenue sur mon serveur Express sur render ")
