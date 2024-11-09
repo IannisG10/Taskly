@@ -14,9 +14,10 @@ app.get("/",(req,res) => {
 
 app.post("/task",(req,res) => {
     const task = req.body;
+    console.log("Type de données reçues :", typeof task)
     try{
-        res.json(task);
-        console.log("Données reçus :",JSON.parse(task))
+        console.log("Données reçus :",task)
+        res.status(201).json({message: "Tâches ajoutées avec succes"})
     }catch(err){
         console.error("Mauvaise reception des données ",err);
     }

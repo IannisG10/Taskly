@@ -96,7 +96,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
-        sendDataToServer();
+        sendDataToServer()
 
         setFavTask(() => {
             const storeFavs = task.filter(tasks => tasks.isFav);
@@ -166,12 +166,23 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(task)
+            body: JSON.stringify({
+                "TagList": ["reveil"],
+                "date": "09/11/2024",
+                "description": "Se lever tot",
+                "id": 1731146229826,
+                "isDone": false,
+                "isFav": false,
+                "tags": "reveil"
+            })
         }).then(res => res.json())
-            .then(data => console.log("Données envoyées au serveur",data))
-            .catch(err => console.error("Erreur d'envoies des données au serveur",err))
+          .then(data => console.log("Données envoyées au serveur sur render",data))
+          .catch(err => console.log("Erreur d'envoies des données au serveur",err))
     }
 
+
+
+ 
     const deleteDoneTask = (id: number) => {
         //A Chaque modification de l'etat TrashedTask 
         setTrashedTask(()=>{
