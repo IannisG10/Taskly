@@ -45,6 +45,7 @@ interface TaskContextType {
     deleteTask: (id: number) => void,
     deleteFavTask: (id: number) => void,
     deleteDoneTask: (id: number) => void,
+    deleteSearchTask: (id: number) => void
     searchTerm: (term: string) => void,
     favingTask: (id: number) => void,
     restoreTask: (id: number) => void,
@@ -216,8 +217,31 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         })
 
         setTask(prevTask => prevTask.filter(tasks => tasks.id !== id)); //Task est modifiée 
-       
-        
+          
+    }
+
+    const deleteSearchTask = (id: number)=> {
+        //Ajouter la tache rechercher dans la corbeille
+        setTrashedTask(()=>{
+            const taskToDelete = taskFound_Bysearch.filter(tasks => tasks.id === id)
+
+            const concatTrash = trashedTask.concat(taskToDelete)
+            return concatTrash;
+        })
+        //Supprimer la tache de l'etat TaskFound_BySearch
+        setTaskFound_Bysearch(prevTask => {
+            const taskToSave = prevTask.filter(tasks => tasks.id !== id)
+            
+            return taskToSave;
+        }    
+        )
+
+        setTask(prevtask => {
+            const taskToSave = prevtask.filter(tasks => tasks.id !== id)
+
+            return taskToSave;
+        })
+
     }
 
     const doneTask = (id: number) => {
@@ -275,7 +299,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     return(
         <TaskContext.Provider 
             value={{task,setTask,inputValue,setInputValue,tagValue,setTagValue,date,setDate,searchTask,setSearchTask,
-            taskIsFound,setTaskIsFound,taskFound_Bysearch,setTaskFound_Bysearch,addTask,trashedTask,setTrashedTask,deleteTask,restoreTask,deleteFavTask,deleteDoneTask,taskDone,setTaskDone,
+            taskIsFound,setTaskIsFound,taskFound_Bysearch,setTaskFound_Bysearch,addTask,trashedTask,setTrashedTask,
+            deleteTask,deleteSearchTask,restoreTask,deleteFavTask,deleteDoneTask,taskDone,setTaskDone,
             doneTask,favingTask,favTask,setFavTask,searchTerm,inputErr,setInputErr,theme,setTheme,changeTheme}}>
                 {children}
         </TaskContext.Provider>

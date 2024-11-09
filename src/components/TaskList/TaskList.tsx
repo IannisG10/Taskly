@@ -6,7 +6,7 @@ import { Clock3 } from "lucide-react";
 import { Star,Filter } from "lucide-react";
 
 const TaskList: React.FC = () => {
-    const { task,deleteTask,favingTask,doneTask,theme,taskIsFound,taskFound_Bysearch } = useTask();
+    const { task,deleteTask,favingTask,deleteSearchTask,doneTask,theme,taskIsFound,taskFound_Bysearch } = useTask();
     
 
     return(
@@ -54,7 +54,7 @@ const TaskList: React.FC = () => {
                                 </div>
                                 
                                 <div className={`${theme ? "hover:bg-gray-500":"hover:bg-gray-200"} p-2 hover:bg-gray-200 cursor-pointer rounded-md`}
-                                    onClick={()=>{deleteTask(item.id)}}
+                                    onClick={()=>{deleteSearchTask(item.id)}}
                                     title="supprimer"
                                 >
                                     <Trash2 size={20} color={`${theme ? "white":"black"}`}/>
