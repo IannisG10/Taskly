@@ -166,15 +166,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                "TagList": ["reveil"],
-                "date": "09/11/2024",
-                "description": "Se lever tot",
-                "id": 1731146229826,
-                "isDone": false,
-                "isFav": false,
-                "tags": "reveil"
-            })
+            body: JSON.stringify(task)
         }).then(res => res.json())
           .then(data => console.log("Données envoyées au serveur sur render",data))
           .catch(err => console.log("Erreur d'envoies des données au serveur",err))
