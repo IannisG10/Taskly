@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require("mongoose") 
 require("dotenv").config(); //Charge les variablees d'environnement 
 const PORT = process.env.PORT || 3000
+const Task = require("./model/task")
 
 app.use(express.json());
 app.use(cors());
@@ -19,9 +20,12 @@ app.get("/",(req,res) => {
 })
 
 app.post("/task",(req,res) => {
-    const task = req.body;
+    //const task = req.body;
+    const {id, description} = req.body
     try{
-        console.log("Données reçus :",task)
+        const newTask = new Task({id,description})
+        newTask.save()
+        console.log("Données reçus :",newTask)
         res.status(201).json({message: "Tâches ajoutées avec succes"})
     }catch(err){
         console.error("Mauvaise reception des données ",err);
