@@ -168,7 +168,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             },
             body: JSON.stringify(task)
         }).then(res => res.json())
-          .then(data => console.log("Données envoyées au serveur sur render ",data))
+          .then(data => console.log(data))
           .catch(err => console.log("Erreur d'envoies des données au serveur",err))
     }
 
