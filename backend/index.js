@@ -27,8 +27,8 @@ app.post("/task",(req,res) => {
         newTask.save()
         console.log(req.body)
         res.status(201).json({
-            message: `Tâches ajoutées avec succes `,task: req.body,
-            task: JSON.stringify(req.body)
+            message: `Tâches ajoutées avec succes `,
+            task: JSON.stringify(description)
         })
     }catch(err){
         console.error("Mauvaise reception des données ",err);
