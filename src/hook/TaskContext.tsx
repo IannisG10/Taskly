@@ -96,6 +96,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
+        console.log(task)
         sendDataToServer()
 
         setFavTask(() => {
