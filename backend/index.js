@@ -9,7 +9,7 @@ const Task = require("./model/task")
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://guerraiannis:Papouches@cluster0.t2nxc.mongodb.net/")
+mongoose.connect("mongodb+srv://guerraiannis:Taskly10WEB@cluster0.t2nxc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 .then(()=>{console.log("connexion au cloud de MongoDb Atlas établie")})
 .catch((err) => {
     console.log("Erreur de connexion à la base de donnée")

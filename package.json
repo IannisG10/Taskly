@@ -21,6 +21,7 @@
     "@radix-ui/react-tabs": "^1.1.1",
     "@tippyjs/react": "^4.2.6",
     "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
