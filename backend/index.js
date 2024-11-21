@@ -26,7 +26,7 @@ app.post("/task",(req,res) => {
         // const newTask = new Task({description})
         // newTask.save()
         console.log(req.body)
-        res.status(201).send("Taches ajoutée")
+        
     }catch(err){
         console.error("Mauvaise reception des données ",err);
     }
