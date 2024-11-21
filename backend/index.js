@@ -21,7 +21,7 @@ app.get("/",(req,res) => {
 
 app.post("/task",(req,res) => {
     //const task = req.body;
-    const {description} = req.body
+    const { description } = req.body
     try{
         const newTask = new Task({description})
         newTask.save()
@@ -30,7 +30,7 @@ app.post("/task",(req,res) => {
     }catch(err){
         console.error("Mauvaise reception des données ",err);
     }
-} )
+})
 
 app.listen(PORT,() => {
     console.log(`Serveur lancé sur le port ${PORT}`)
