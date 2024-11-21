@@ -169,7 +169,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             },
             body: JSON.stringify(task)
         }).then(res => res.json())
-          .then(data => console.log(data))
+          .then(data => console.log("heello my server",data))
           .catch(err => console.log("Erreur d'envoies des données au serveur",err))
     }
 

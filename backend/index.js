@@ -21,15 +21,15 @@ app.get("/",(req,res) => {
 
 app.post("/task",(req,res) => {
     //const task = req.body;
-    const { description } = req.body
+    const task = req.body
     try{
-        const newTask = new Task({description})
-        newTask.save()
+        // const newTask = new Task({description})
+        // newTask.save()
         console.log(req.body)
-        res.status(201).json({
-            message: `Tâches ajoutées avec succes `,
-            task: JSON.stringify(description)
-        })
+        // res.status(201).json({
+        //     messagesUS: `Une taches: `, task: req.body,
+        //     task: req.body
+        // })
     }catch(err){
         console.error("Mauvaise reception des données ",err);
     }
