@@ -26,10 +26,7 @@ app.post("/task",(req,res) => {
         // const newTask = new Task({description})
         // newTask.save()
         console.log(req.body)
-        // res.status(201).json({
-        //     messagesUS: `Une taches: `, task: req.body,
-        //     task: req.body
-        // })
+        res.status(201).send("Taches ajoutée")
     }catch(err){
         console.error("Mauvaise reception des données ",err);
     }
