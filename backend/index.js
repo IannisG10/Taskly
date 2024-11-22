@@ -21,12 +21,12 @@ app.get("/",(req,res) => {
 
 app.post("/task",(req,res) => {
     //const task = req.body;
-    const { description } = req.body
+    const task = req.body
     try{
         // const newTask = new Task({description})
         // newTask.save()
         console.log(req.body)
-        res.status(200).json({ message: "Tâche reçue et traitée", task: description });
+        res.status(200).json({ message: "Tâche reçue et traitée", task: task });
         
     }catch(err){
         console.error("Mauvaise reception des données ",err);
