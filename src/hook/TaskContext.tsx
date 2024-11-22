@@ -142,10 +142,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
             setTask(prevTask => {
                         const updateTask = [...prevTask, newTask];
+                        sendDataToServer(newTask);
                         return updateTask;
                      }
             );
-            sendDataToServer();
+            
             
             setInputValue("");
             setTagValue("");
@@ -163,13 +164,13 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         }
     }
 
-    const sendDataToServer = () => {
+    const sendDataToServer = (newTask: any) => {
         fetch("https://taskly-t74u.onrender.com/task",{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(task)
+            body: JSON.stringify(newTask)
         }).then(res => res.json())
           .then(data => console.log("Réponse du serveur", data))
           .catch(err => console.log("Erreur d'envoies des données au serveur",err))
