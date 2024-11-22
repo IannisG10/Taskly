@@ -21,16 +21,15 @@ app.get("/",(req,res) => {
 
 app.post("/task",(req,res) => {
     //const task = req.body;
-    const task = req.body
+    const { description } = req.body
     
-    const firstTaskTitle = task[0].description
     
     try{
         // const newTask = new Task({description})
         // newTask.save()
-        console.log(firstTaskTitle)
+        console.log(description)
         console.log(req.body)
-        const newTask = new Task({description: firstTaskTitle})
+        const newTask = new Task({description: description})
         newTask.save()
         res.status(200).json({ message: "Tâche reçu et sauvergardé avec succes ",Task: task });
         
