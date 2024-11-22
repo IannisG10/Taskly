@@ -22,7 +22,8 @@ app.get("/",(req,res) => {
 app.post("/task",(req,res) => {
     //const task = req.body;
     const task = req.body
-    const { id,description,tags } = req.body
+    const [firstTask] = req.body
+    const { id,description,tags } = firstTask
     try{
         // const newTask = new Task({description})
         // newTask.save()
