@@ -22,8 +22,8 @@ app.get("/",(req,res) => {
 app.post("/task",(req,res) => {
     //const task = req.body;
     const task = req.body
-    
-    const { description } = req.body[0]
+    const [firstTask] = req.body // Appel du premier element du tableau d'objet task
+    const { description } = firstTask
 
     try{
         // const newTask = new Task({description})
