@@ -22,11 +22,8 @@ app.get("/",(req,res) => {
 app.post("/task",(req,res) => {
     //const task = req.body;
     const task = req.body
-    const tasks = [
-        { id: 1, title: "Tâche 1", completed: false },
-        { id: 2, title: "Tâche 2", completed: true },
-    ];
-    const firstTaskTitle = tasks[0].title
+    
+    const firstTaskTitle = task[0].description
     
     try{
         // const newTask = new Task({description})
