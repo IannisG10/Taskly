@@ -22,13 +22,12 @@ app.get("/",(req,res) => {
 app.post("/task",(req,res) => {
     //const task = req.body;
     const task = req.body
-    const [firstTask] = req.body // Appel du premier element du tableau d'objet task
-    const { description } = firstTask
+    
 
     try{
         // const newTask = new Task({description})
         // newTask.save()
-        console.log(description)
+        console.log(req.body[0].description)
         console.log(req.body)
         res.status(200).json({ message: "Tâche reçue et traitée",Task: task });
         
