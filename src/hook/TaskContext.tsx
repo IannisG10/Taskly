@@ -107,7 +107,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             const storeDone = task.filter(tasks => tasks.isDone);
             return storeDone;
         })
-        sendDataToServer();
     },[task])
 
     useEffect(()=> {
@@ -146,6 +145,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
                         return updateTask;
                      }
             );
+            sendDataToServer();
             
             setInputValue("");
             setTagValue("");
