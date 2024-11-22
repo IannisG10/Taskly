@@ -31,7 +31,7 @@ app.post("/task",(req,res) => {
         console.log(req.body)
         const newTask = new Task({description: description})
         newTask.save()
-        res.status(200).json({ message: "Tâche reçu et sauvergardé avec succes ",Task: task });
+        res.status(200).json({ message: "Tâche reçu et sauvergardé avec succes ",Task: description });
         
     }catch(err){
         console.error("Mauvaise reception des données ",err);
