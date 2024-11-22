@@ -140,9 +140,9 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         const newErrors: ErrorInput = {}
 
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
+            sendDataToServer(newTask);
             setTask(prevTask => {
                         const updateTask = [...prevTask, newTask];
-                        sendDataToServer(newTask);
                         return updateTask;
                      }
             );
