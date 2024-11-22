@@ -85,7 +85,7 @@ const InputField: React.FC= () => {
                                 <Calendar mode="single"
                                     selected={date}
                                     onSelect={handleSelectDate}
-                                    className='rounded-md shadow-inner bg-gray-100 border border-black'
+                                    className='rounded-md shadow-inner  bg-gray-100 border border-black z-20'
                                 />
                             </div> : null}
         
