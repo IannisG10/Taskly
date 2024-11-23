@@ -19,12 +19,12 @@ app.get('/',(req,res)=>{
 })
 
 app.post('/task',(req,res) => {
-    const {description} = req.body
+    const {id,description,isFav,isDone} = req.body
     const d = req.body
     try{
         console.log("Voici ma donnée:",description)
         console.log(d)
-        const newTask = new Task({descri: description})
+        const newTask = new Task({_id: id,descri: description,favoris: isFav,Fais: isDone})
         newTask.save()
         res.status(200).json({message: "Voici les données",task: description})
 
