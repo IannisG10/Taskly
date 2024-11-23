@@ -147,7 +147,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
                      }
             );
             
-            
             setInputValue("");
             setTagValue("");
             setInputErr(newErrors);

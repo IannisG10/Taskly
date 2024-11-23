@@ -123,7 +123,7 @@ const TaskList: React.FC = () => {
             }
 
             {task.length > 0 && 
-                <div className={`${theme ? "text-gray-200":"text-gray-600"} text-sm font-serif font-medium `}>
+                <div className={`${theme ? "text-gray-200":"text-gray-600"} z-0 text-sm font-serif font-medium `}>
                     Il reste {task.length} taches
                 </div>}
             

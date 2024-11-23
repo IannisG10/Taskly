@@ -76,7 +76,7 @@ const InputField: React.FC= () => {
                             onClick={displayCalendar}     
                         >
                             <CalendarDays size={23} color="white"/> 
-                            <div className='text-gray-100'>Date d'échéance</div>
+                            <div className='text-gray-100'>Date d'echeance</div>
                         </button>
                         {showCalendar ? 
                             <div className='absolute top-28 z-20'
@@ -85,7 +85,7 @@ const InputField: React.FC= () => {
                                 <Calendar mode="single"
                                     selected={date}
                                     onSelect={handleSelectDate}
-                                    className='rounded-md shadow-inner  bg-gray-100 border border-black z-20'
+                                    className='rounded-md shadow-inner  bg-gray-400 border border-black absolute -right-28 top-3 z-50'
                                 />
                             </div> : null}
         
@@ -129,7 +129,7 @@ const InputField: React.FC= () => {
                     <div>Date d'échéance</div>
                 </button>
                 {showCalendar ? 
-                    <div className='absolute top-28'
+                    <div className='absolute top-28 z-20'
                         ref={inputDateRef}
                     >
                         <Calendar mode="single"
