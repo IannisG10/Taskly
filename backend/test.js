@@ -1,8 +1,15 @@
 const express = require("express")
 const cors = require("cors")
+const mongoose = require("mongoose")
+
+mongoose.connect("")
+.then(()=>{
+    console.log("Connexion à la base de donnée établie")
+})
+.catch(err => console.log("Erreur de connexion à la base de donnée"))
 
 const app = express()
-const PORT = 3001
+const PORT = 3000
 app.use(express.json())
 app.use(cors())
 
