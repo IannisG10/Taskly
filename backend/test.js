@@ -18,6 +18,15 @@ app.get('/',(req,res)=>{
     res.send("Le serveur de test est en ecoute sur le port 3001")
 })
 
+app.get('/task', async (req,res) => {
+    try{
+        const task = await Task.find()
+        res.status(200).json({message: 'Voici les données recu',taches: task})
+    }catch(err){
+        console.log("Erreur lors de la recuperation des données")
+    }
+})
+
 app.post('/task',(req,res) => {
     const {id,description,TagList,date,isFav,isDone} = req.body
     const d = req.body

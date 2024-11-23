@@ -94,6 +94,20 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     
     const [theme,setTheme] = useState<boolean>(false);
 
+
+    // Effet de bord qui permettra de recuperer les données depuis la base de donnée des que la page se charge 
+    useEffect(()=>{
+        fetch("https://taskly-t74u.onrender.com/task")
+        .then((res)=>{
+            return res.json()
+        })
+        .then((data) => {
+            console.log("Données récupéré de la base de données",data)
+
+        }).catch(err => console.log("Mal réception des données",err))
+
+    },[])
+
     useEffect(()=> {
         sessionStorage.setItem("Task",JSON.stringify(task));
         console.log(task)
