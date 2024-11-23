@@ -3,7 +3,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const Task = require("./model/task")
 
-mongoose.connect("")
+mongoose.connect("mongodb+srv://guerraiannis:Taskly10WEB@cluster0.t2nxc.mongodb.net/DatabaseTask?retryWrites=true&w=majority&appName=Cluster0")
 .then(()=>{
     console.log("Connexion à la base de donnée établie")
 })
@@ -24,6 +24,7 @@ app.post('/task',(req,res) => {
     try{
         console.log("Voici ma donnée:",description)
         console.log(d)
+        const newTask = new Task({descri: description})
         res.status(200).json({message: "Voici les données",task: description})
 
     }catch(err){
