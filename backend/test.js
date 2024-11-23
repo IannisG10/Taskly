@@ -25,6 +25,7 @@ app.post('/task',(req,res) => {
         console.log("Voici ma donnée:",description)
         console.log(d)
         const newTask = new Task({descri: description})
+        newTask.save()
         res.status(200).json({message: "Voici les données",task: description})
 
     }catch(err){
