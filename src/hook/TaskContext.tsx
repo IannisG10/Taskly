@@ -140,7 +140,18 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         const newErrors: ErrorInput = {}
 
         if(inputValue.trim() !== "" && tagValue.trim() !== ""){
-            sendDataToServer(newTask);
+           //sendDataToServer(newTask);
+           fetch("https://taskly-t74u.onrender.com/task",{
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+
+                },
+                body: JSON.stringify(newTask)
+
+           }).then(res => res.json())
+             .then(data => console.log('Données envoyé au serveur:',data))
+             .catch(err => console.log("Erreur d'envoie des données",err))
             setTask(prevTask => {
                         const updateTask = [...prevTask, newTask];
                         return updateTask;
@@ -163,17 +174,17 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         }
     }
 
-    const sendDataToServer = (newTask: any) => {
-        fetch("https://taskly-t74u.onrender.com/task",{
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newTask)
-        }).then(res => res.json())
-          .then(data => console.log("Réponse du serveur", data))
-          .catch(err => console.log("Erreur d'envoies des données au serveur",err))
-    }
+    // const sendDataToServer = (newTask: any) => {
+    //     fetch("https://taskly-t74u.onrender.com/task",{
+    //         method: "POST",
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(newTask)
+    //     }).then(res => res.json())
+    //       .then(data => console.log("Réponse du serveur", data))
+    //       .catch(err => console.log("Erreur d'envoies des données au serveur",err))
+    // }
 
 
 
