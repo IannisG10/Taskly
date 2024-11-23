@@ -1,12 +1,13 @@
 const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
+const Task = require("./model/task")
 
 mongoose.connect("")
 .then(()=>{
     console.log("Connexion à la base de donnée établie")
 })
-.catch(err => console.log("Erreur de connexion à la base de donnée"))
+.catch(err => console.log("Erreur de connexion à la base de donnée",err))
 
 const app = express()
 const PORT = 3000
@@ -19,8 +20,10 @@ app.get('/',(req,res)=>{
 
 app.post('/task',(req,res) => {
     const {description} = req.body
+    const d = req.body
     try{
         console.log("Voici ma donnée:",description)
+        console.log(d)
         res.status(200).json({message: "Voici les données",task: description})
 
     }catch(err){
