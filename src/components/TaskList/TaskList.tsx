@@ -6,8 +6,17 @@ import { Clock3 } from "lucide-react";
 import { Star,Filter } from "lucide-react";
 
 const TaskList: React.FC = () => {
-    const { task,deleteTask,favingTask,deleteSearchTask,doneTask,theme,taskIsFound,taskFound_Bysearch } = useTask();
+    const {task,deleteTask,favingTask,deleteSearchTask,doneTask,theme,taskIsFound,taskFound_Bysearch } = useTask();
     
+    // useEffect(()=>{
+    //     fetch("https://taskly-t74u.onrender.com/task")
+    //     .then(res => res.json())
+    //     .then(data => setTask(data))
+    //     .catch((err) => {
+    //         console.log("Erreur de recuperation des données")
+    //     })
+
+    // },[])
 
     return(
         <div className='flex flex-col gap-2 sm:w-1/4 w-4/5 relative'>

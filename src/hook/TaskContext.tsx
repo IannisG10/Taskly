@@ -105,6 +105,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         })
         .then((data) => {
             console.log("Données récupéré de la base de données",data)
+            setTask(data)
 
         }).catch(err => console.log("Mal réception des données",err))
 
