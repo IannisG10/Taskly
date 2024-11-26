@@ -111,20 +111,20 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     },[])
 
-    useEffect(()=> {
-        sessionStorage.setItem("Task",JSON.stringify(task));
-        console.log(task)
+    // useEffect(()=> {
+    //     sessionStorage.setItem("Task",JSON.stringify(task));
+    //     console.log(task)
         
 
-        setFavTask(() => {
-            const storeFavs = task.filter(tasks => tasks.isFav);
-            return storeFavs;
-        })
-        setTaskDone(()=>{
-            const storeDone = task.filter(tasks => tasks.isDone);
-            return storeDone;
-        })
-    },[task])
+    //     setFavTask(() => {
+    //         const storeFavs = task.filter(tasks => tasks.isFav);
+    //         return storeFavs;
+    //     })
+    //     setTaskDone(()=>{
+    //         const storeDone = task.filter(tasks => tasks.isDone);
+    //         return storeDone;
+    //     })
+    // },[task])
 
     useEffect(()=> {
         // Sauvegarde les éléments supprimés dans le localStorage des que 'trashedTask' est mis à jour
