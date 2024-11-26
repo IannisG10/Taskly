@@ -28,13 +28,19 @@ app.get('/task', async (req,res) => {
 })
 
 app.post('/task',(req,res) => {
-    const {id,description,TagList,date,isFav,isDone} = req.body
+    const {id,description,tags,TagList,date,isFav,isDone} = req.body
     const d = req.body
     try{
         console.log("Voici ma donnée:",description)
         console.log(d)
         const newTask = new Task({
-            _id: id,descri: description,tags: TagList,date: date,favoris: isFav,Fais: isDone
+            _id: id,
+            descri: description,
+            tague: TagList,
+            tagValue: tags,
+            date: date,
+            favoris: isFav,
+            Fais: isDone
         })
         newTask.save()
         res.status(200).json({message: "Voici les données",task: description})

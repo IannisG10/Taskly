@@ -3,7 +3,8 @@ const mongoose = require("mongoose")
 const taskSchema = new mongoose.Schema({
     _id: Number,
     descri: String,
-    tags: [String],
+    tagValue: String,
+    tague: [String],
     date: String,
     favoris: Boolean,
     Fais: Boolean
