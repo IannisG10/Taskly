@@ -177,6 +177,17 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             
             setInputValue("");
             setTagValue("");
+
+            fetch("https://taskly-t74u.onrender.com/task")
+           .then((res)=>{
+                return res.json()
+            })
+            .then((data) => {
+                console.log("Données récupéré de la base de données",data)
+                setTask(data)
+            }).catch(err => console.log("Mal réception des données",err))
+
+
             setInputErr(newErrors);
         }else{ //Si non si l'un des champs est incomplète, des instruction pour gérer les erreurs s'engage 
             
