@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React from "react";
 import { useTask } from "@/hook/TaskContext";
 import { Checkbox } from "../ui/checkbox";
 import { Trash2 } from "lucide-react";

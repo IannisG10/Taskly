@@ -4,6 +4,7 @@ import Home from './layout/Home';
 import Trash from './layout/Trash';
 import Favorite from './layout/Favorite';
 import Done from './layout/Done';
+// import Auth from './layout/Auth';
 import {Routes,Route } from 'react-router-dom';
 import { TaskProvider } from './hook/TaskContext';
 
@@ -19,6 +20,7 @@ const App: React.FC = ()=> {
                         <Route path='/terminé' element={<Done/>}/>
                         <Route path='/important' element={<Favorite/>}/>
                         <Route path='/corbeille' element={<Trash/>}/>
+                        {/* <Route path='/' element={<Auth/>}/> */}
                     </Routes>
                 </TaskProvider>
                   
