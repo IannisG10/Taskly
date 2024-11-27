@@ -169,11 +169,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
            }).then(res => res.json())
              .then(data => console.log('Données envoyé au serveur:',data))
              .catch(err => console.log("Erreur d'envoie des données",err))
-            setTask(prevTask => {
-                        const updateTask = [...prevTask, newTask];
-                        return updateTask;
-                     }
-            );
+            // setTask(prevTask => {
+            //             const updateTask = [...prevTask, newTask];
+            //             return updateTask;
+            //          }
+            // );
             
             setInputValue("");
             setTagValue("");
