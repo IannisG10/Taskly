@@ -22,7 +22,8 @@ app.get('/',(req,res)=>{
 app.get('/task', async (req,res) => {
     try{
         const task = await Task.find()
-        res.status(200).json({message: 'Voici les données recu',taches: task})
+        //res.status(200).json({message: 'Voici les données recu',taches: task})
+        res.json(task)
     }catch(err){
         console.log("Erreur lors de la recuperation des données")
     }

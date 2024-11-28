@@ -107,7 +107,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     },[])
 
     useEffect(()=>{
-        console.log("Doit etre stocké dans task: ",task)
+        console.log("Doit etre stocké dans task: ", task)
     },[task])
 
     // useEffect(()=> {
