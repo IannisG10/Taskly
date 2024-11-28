@@ -18,6 +18,7 @@ app.get('/',(req,res)=>{
     res.send("Le serveur de test est en ecoute sur le port 3001")
 })
 
+//Route pour recupérer les données 
 app.get('/task', async (req,res) => {
     try{
         const task = await Task.find()

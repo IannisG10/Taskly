@@ -72,10 +72,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [taskIsFound,setTaskIsFound] = useState<boolean>(false)
     
     const [taskFound_Bysearch,setTaskFound_Bysearch] = useState<Task[]>([])
-    const [task,setTask] = useState<Task[]>(()=>{
-        const storedTask = sessionStorage.getItem("Task");
-        return storedTask ? JSON.parse(storedTask) : []
-    });
+    const [task,setTask] = useState<Task[]>([]);
 
     const [trashedTask,setTrashedTask] = useState<Task[]>(()=> {
         const storedTrash = sessionStorage.getItem("Trash");
@@ -97,7 +94,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
 
     // Effet de bord qui permettra de recuperer les données depuis la base de donnée des que la page se charge 
     useEffect(()=>{
-        // Flag pour empecher que le composant soit remonté à nouveau apres etre demonté
+        
         
         fetch("https://taskly-t74u.onrender.com/task")
         .then((res)=>{
@@ -105,9 +102,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         })
         .then((data) => {
             console.log("Données récupéré de la base de données",data)
-             setTask(data)
+            setTask(data)
 
         }).catch(err => console.log("Mal réception des données",err))
+        // Test si des données ont bien été intégré dans l'etat task
+        console.log(task)
 
     },[])
 
@@ -162,7 +161,6 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json'
-
                 },
                 body: JSON.stringify(newTask)
 
@@ -178,15 +176,16 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             setInputValue("");
             setTagValue("");
 
-            fetch("https://taskly-t74u.onrender.com/task")
-           .then((res)=>{
-                return res.json()
-            })
-            .then((data) => {
-                console.log("Données récupéré de la base de données",data)
-                setTask(data);
-                console.log(task)
-            }).catch(err => console.log("Mal réception des données",err))
+            // Apres chaque post les données sont récupéres dans l'etat task 
+        //     fetch("https://taskly-t74u.onrender.com/task")
+        //    .then((res)=>{
+        //         return res.json()
+        //     })
+        //     .then((data) => {
+        //         console.log("Données récupéré de la base de données",data)
+        //         setTask(data);
+        //         console.log(task)
+        //     }).catch(err => console.log("Mal réception des données",err))
 
 
             setInputErr(newErrors);
@@ -224,10 +223,10 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             
             const taskToDelete = taskDone.filter(tasks => tasks.id === id);
             const concatTrash = trashedTask.concat(taskToDelete);
-            setTask(prevtask => {
-                    const taskDel = prevtask.filter(tasks => tasks.id !== id);
-                    return taskDel;
-            })
+            // setTask(prevtask => {
+            //         const taskDel = prevtask.filter(tasks => tasks.id !== id);
+            //         return taskDel;
+            // })
 
             return concatTrash;
         });
@@ -241,10 +240,10 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             const taskToDelete = favTask.filter(favTasks => favTasks.id === id);
             //Combine la taches filtré avec l'etat de la corbeille "TrashedTask"
             const concatTrash = trashedTask.concat(taskToDelete);
-            setTask(prevTask => {
-                const taskDel = prevTask.filter(tasks => tasks.id !== id);
-                return taskDel;
-            })
+            // setTask(prevTask => {
+            //     const taskDel = prevTask.filter(tasks => tasks.id !== id);
+            //     return taskDel;
+            // })
 
             return concatTrash;
         })
@@ -253,14 +252,14 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const deleteTask = (id: number) => {
-        setTrashedTask(() => {
+       setTrashedTask(() => {
             //Filtre les taches qui doivent etre placée dans la corbeille
             const taskToDelete = task.filter(tasks => tasks.id === id);
             //Combine les elemnts precdent de la corbeille aux nouveaux éléments ajoutées 
             const concatTrash = trashedTask.concat(taskToDelete);
 
             return concatTrash;
-        })
+       })
 
         setTask(prevTask => prevTask.filter(tasks => tasks.id !== id)); //Task est modifiée 
           
@@ -282,11 +281,11 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
         }    
         )
 
-        setTask(prevtask => {
-            const taskToSave = prevtask.filter(tasks => tasks.id !== id)
+        // setTask(prevtask => {
+        //     const taskToSave = prevtask.filter(tasks => tasks.id !== id)
 
-            return taskToSave;
-        })
+        //     return taskToSave;
+        // })
 
     }
 
@@ -299,7 +298,7 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     }
 
     const favingTask = (id: number) => {
-        // Mettre à jour l'etat `task` afin de modifier les valeurs boolean de isFav
+        //Mettre à jour l'etat `task` afin de modifier les valeurs boolean de isFav
         setTask(prevTask => {
             const updateTask = prevTask.map(tasks => tasks.id === id ? {...tasks,isFav: !tasks.isFav} : tasks);
             return updateTask;
@@ -325,12 +324,12 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const restoreTask = (id: number) => {
         setTrashedTask(prevTrash => {
             const taskToRestore = prevTrash.filter(trahs => trahs.id !== id);
-            const TaskToRestored = prevTrash.filter(trashs => trashs.id === id);
-            setTask(prevTask => {
-                const concatRestore = prevTask.concat(TaskToRestored);
-                console.log(concatRestore);
-                return concatRestore;
-            })
+            //const TaskToRestored = prevTrash.filter(trashs => trashs.id === id);
+            // setTask(prevTask => {
+            //     const concatRestore = prevTask.concat(TaskToRestored);
+            //     console.log(concatRestore);
+            //     return concatRestore;
+            // })
             return taskToRestore;
         });
     }
