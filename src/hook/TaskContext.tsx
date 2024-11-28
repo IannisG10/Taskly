@@ -92,10 +92,8 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
     const [theme,setTheme] = useState<boolean>(false);
 
 
-    // Effet de bord qui permettra de recuperer les données depuis la base de donnée des que la page se charge 
+    // Effet pour récupérer les données de la base de données lors du premier chargement de la page.
     useEffect(()=>{
-        
-        
         fetch("https://taskly-t74u.onrender.com/task")
         .then((res)=>{
             return res.json()
@@ -105,9 +103,12 @@ export const TaskProvider: React.FC<TaskProviderProps> = ({children})=> {
             setTask(data)
         }).catch(err => console.log("Mal réception des données",err))
         // Test si des données ont bien été intégré dans l'etat task
-        console.log("Doit etre stocké dans task: ",task)
-
+        
     },[])
+
+    useEffect(()=>{
+        console.log("Doit etre stocké dans task: ",task)
+    },[task])
 
     // useEffect(()=> {
     //     sessionStorage.setItem("Task",JSON.stringify(task));
